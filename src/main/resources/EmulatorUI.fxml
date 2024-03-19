@@ -7,10 +7,9 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
 
-
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.binarybrigade.mipsemulator.Controller">
    <children>
-      <Pane layoutX="1.0" layoutY="-1.0" prefHeight="36.0" prefWidth="176.0">
+      <Pane layoutX="60.0" layoutY="44.0" prefHeight="36.0" prefWidth="176.0">
          <children>
             <TextField layoutX="23.0" layoutY="6.0" />
             <Label layoutX="2.0" layoutY="10.0" text="\$pc">
@@ -20,7 +19,7 @@
             </Label>
          </children>
       </Pane>
-      <Pane layoutX="1.0" layoutY="35.0" prefHeight="36.0" prefWidth="176.0">
+      <Pane layoutX="60.0" layoutY="80.0" prefHeight="36.0" prefWidth="176.0">
          <children>
             <TextField layoutX="23.0" layoutY="6.0" />
             <Label layoutX="3.0" layoutY="10.0" text="\$ra">
@@ -30,10 +29,143 @@
             </Label>
          </children>
       </Pane>
-      <ScrollPane layoutX="45.0" layoutY="239.0" prefHeight="318.0" prefWidth="473.0">
+      <Pane layoutX="236.0" layoutY="44.0" prefHeight="36.0" prefWidth="176.0">
+         <children>
+            <TextField layoutX="23.0" layoutY="6.0" />
+            <Label layoutX="2.0" layoutY="10.0" text="\$pc">
+               <padding>
+                  <Insets right="5.0" />
+               </padding>
+            </Label>
+         </children>
+      </Pane>
+      <Pane layoutX="764.0" layoutY="44.0" prefHeight="36.0" prefWidth="176.0">
+         <children>
+            <TextField layoutX="23.0" layoutY="6.0" />
+            <Label layoutX="2.0" layoutY="10.0" text="\$pc">
+               <padding>
+                  <Insets right="5.0" />
+               </padding>
+            </Label>
+         </children>
+      </Pane>
+      <Pane layoutX="588.0" layoutY="116.0" prefHeight="36.0" prefWidth="176.0">
+         <children>
+            <TextField layoutX="23.0" layoutY="6.0" />
+            <Label layoutX="2.0" layoutY="10.0" text="\$pc">
+               <padding>
+                  <Insets right="5.0" />
+               </padding>
+            </Label>
+         </children>
+      </Pane>
+      <Pane layoutX="412.0" layoutY="116.0" prefHeight="36.0" prefWidth="176.0">
+         <children>
+            <TextField layoutX="23.0" layoutY="6.0" />
+            <Label layoutX="2.0" layoutY="10.0" text="\$pc">
+               <padding>
+                  <Insets right="5.0" />
+               </padding>
+            </Label>
+         </children>
+      </Pane>
+      <Pane layoutX="236.0" layoutY="116.0" prefHeight="36.0" prefWidth="176.0">
+         <children>
+            <TextField layoutX="23.0" layoutY="6.0" />
+            <Label layoutX="2.0" layoutY="10.0" text="\$pc">
+               <padding>
+                  <Insets right="5.0" />
+               </padding>
+            </Label>
+         </children>
+      </Pane>
+      <Pane layoutX="60.0" layoutY="116.0" prefHeight="36.0" prefWidth="176.0">
+         <children>
+            <TextField layoutX="23.0" layoutY="6.0" />
+            <Label layoutX="2.0" layoutY="10.0" text="\$pc">
+               <padding>
+                  <Insets right="5.0" />
+               </padding>
+            </Label>
+         </children>
+      </Pane>
+      <Pane layoutX="588.0" layoutY="80.0" prefHeight="36.0" prefWidth="176.0">
+         <children>
+            <TextField layoutX="23.0" layoutY="6.0" />
+            <Label layoutX="2.0" layoutY="10.0" text="\$pc">
+               <padding>
+                  <Insets right="5.0" />
+               </padding>
+            </Label>
+         </children>
+      </Pane>
+      <Pane layoutX="588.0" layoutY="44.0" prefHeight="36.0" prefWidth="176.0">
+         <children>
+            <TextField layoutX="23.0" layoutY="6.0" />
+            <Label layoutX="2.0" layoutY="10.0" text="\$pc">
+               <padding>
+                  <Insets right="5.0" />
+               </padding>
+            </Label>
+         </children>
+      </Pane>
+      <Pane layoutX="412.0" layoutY="80.0" prefHeight="36.0" prefWidth="176.0">
+         <children>
+            <TextField layoutX="23.0" layoutY="6.0" />
+            <Label layoutX="2.0" layoutY="10.0" text="\$pc">
+               <padding>
+                  <Insets right="5.0" />
+               </padding>
+            </Label>
+         </children>
+      </Pane>
+      <Pane layoutX="412.0" layoutY="44.0" prefHeight="36.0" prefWidth="176.0">
+         <children>
+            <TextField layoutX="23.0" layoutY="6.0" />
+            <Label layoutX="2.0" layoutY="10.0" text="\$pc">
+               <padding>
+                  <Insets right="5.0" />
+               </padding>
+            </Label>
+         </children>
+      </Pane>
+      <Pane layoutX="236.0" layoutY="80.0" prefHeight="36.0" prefWidth="176.0">
+         <children>
+            <TextField layoutX="23.0" layoutY="6.0" />
+            <Label layoutX="2.0" layoutY="10.0" text="\$pc">
+               <padding>
+                  <Insets right="5.0" />
+               </padding>
+            </Label>
+         </children>
+      </Pane>
+      <Pane layoutX="764.0" layoutY="80.0" prefHeight="36.0" prefWidth="176.0">
+         <children>
+            <TextField layoutX="23.0" layoutY="6.0" />
+            <Label layoutX="2.0" layoutY="10.0" text="\$pc">
+               <padding>
+                  <Insets right="5.0" />
+               </padding>
+            </Label>
+         </children>
+      </Pane>
+      <Pane layoutX="764.0" layoutY="116.0" prefHeight="36.0" prefWidth="176.0">
+         <children>
+            <TextField layoutX="23.0" layoutY="6.0" />
+            <Label layoutX="2.0" layoutY="10.0" text="\$pc">
+               <padding>
+                  <Insets right="5.0" />
+               </padding>
+            </Label>
+         </children>
+      </Pane>
+      <Label layoutX="60.0" layoutY="212.0" text="Memory" />
+      <ScrollPane layoutX="60.0" layoutY="229.0" prefHeight="318.0" prefWidth="473.0">
          <content>
             <TextArea fx:id="memoryTextArea" prefHeight="338.0" prefWidth="450.0" />
          </content>
       </ScrollPane>
+      <TextArea layoutX="564.0" layoutY="229.0" prefHeight="153.0" prefWidth="176.0" />
+      <Label layoutX="564.0" layoutY="212.0" text="ALU" />
    </children>
 </Pane>
