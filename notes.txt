@@ -8,3 +8,21 @@ Classes:
 
     Handler: Reads a line from the MIPS file and updates the
     memory and registers.
+
+    Main: Responsible for launching the JavaFX Window
+
+Microcode steps:
+
+    add:
+
+    subtract:
+
+    multiply:
+
+    AND:
+
+    OR:
+
+    NOT:
+
+    XOR:
