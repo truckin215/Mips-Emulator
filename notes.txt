@@ -1,0 +1,10 @@
+Project structure:
+
+Classes:
+
+    Controller: Handles input and output from the GUI.
+    Handles button presses, getting any text fields, as
+    well as displaying and updating the text fields.
+
+    Handler: Reads a line from the MIPS file and updates the
+    memory and registers.
