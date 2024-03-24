@@ -17,11 +17,29 @@ Microcode steps:
 
     Store operation:
 
-    add:
+    add (ex. add $t0, $t1, $t2):
+    - send $t1 to the alu
+    - send $t2 to the alu
+    - alu performs addition (hardware circuit)
+    - alu stores the 32-bit result in $t0
+    - set condition code
+    - $pc = $pc + 4 // advance the program counter by 4 bytes
 
-    subtract:
+    subtract (ex. sub $t0, $t1, $t2):
+    - send $t1 to the alu
+    - send $t2 to the alu
+    - alu performs subtraction (hardware circuit)
+    - alu stores the 32-bit result in $t0
+    - set condition code
+    - $pc = $pc + 4 // advance the program counter by 4 bytes
 
-    multiply:
+    multiply (ex. mult $t0, $t1):
+    - send $t0 to the alu
+    - send $t1 to the alu
+    - alu performs multiplication (hardware circuit)
+    - alu stores the 64-bit result in $mflo and $mfhi
+    - set condition code
+    - $pc = $pc + 4 // advance the program counter by 4 bytes
 
     AND:
 
@@ -30,3 +48,7 @@ Microcode steps:
     NOT:
 
     XOR:
+
+    jal (ex. jal 5000):
+    - store the value of $pc in $ra
+    - set $pc to 5000
