@@ -41,7 +41,12 @@ Microcode steps:
     - set condition code
     - $pc = $pc + 4 // advance the program counter by 4 bytes
 
-    AND:
+    and (ex. AND $t0, $t1, $t2):
+    - send $t1 to the alu
+    - send $t2 to the alu
+    - alu performs a bitwise AND operation (harware circuit)
+    - Set condition code
+    - $pc = $pc + 4 // advance the program counter by 4 bytes
 
     OR:
 
