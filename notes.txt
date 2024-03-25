@@ -20,7 +20,7 @@ Microcode steps:
     add (ex. add $t0, $t1, $t2):
     - send $t1 to the alu
     - send $t2 to the alu
-    - alu performs addition (hardware circuit)
+    - alu performs addition on $t1 and $t2 (hardware circuit)
     - alu stores the 32-bit result in $t0
     - set condition code
     - $pc = $pc + 4 // advance the program counter by 4 bytes
@@ -28,7 +28,7 @@ Microcode steps:
     subtract (ex. sub $t0, $t1, $t2):
     - send $t1 to the alu
     - send $t2 to the alu
-    - alu performs subtraction (hardware circuit)
+    - alu performs subtraction on $t1 and $t2 (hardware circuit)
     - alu stores the 32-bit result in $t0
     - set condition code
     - $pc = $pc + 4 // advance the program counter by 4 bytes
@@ -36,7 +36,7 @@ Microcode steps:
     multiply (ex. mult $t0, $t1):
     - send $t0 to the alu
     - send $t1 to the alu
-    - alu performs multiplication (hardware circuit)
+    - alu performs multiplication on $t0 and $t1 (hardware circuit)
     - alu stores the 64-bit result in $mflo and $mfhi
     - set condition code
     - $pc = $pc + 4 // advance the program counter by 4 bytes
@@ -44,29 +44,34 @@ Microcode steps:
     and (ex. AND $t0, $t1, $t2):
     - send $t1 to the alu
     - send $t2 to the alu
-    - alu performs a bitwise AND operation (hardware circuit)
+    - alu performs a bitwise AND operation on $t1 and $t2 (hardware circuit)
+	- alu stores the 32-bit result in $t0
     - Set condition code
     - $pc = $pc + 4 // advance the program counter by 4 bytes
 
-    OR (ex. OR $t0, $t1, $t2):
+    OR (ex. or $t0, $t1, $t2):
     - send $t1 to the alu
     - send $t2 to the alu
-    - alu performs a bitwise OR operation (hardware circuit)
+    - alu performs a bitwise OR operation on $t1 and $t2 (hardware circuit)
+	- alu stores the 32-bit result in $t0
     - Set condition code
     - $pc = $pc + 4 // advance the program counter by 4 bytes
 
-    NOT (ex. NOT $t0, $t1, $t2):
+    NOT (ex. not $t0, $t1):
+    - send $t0 to the alu
     - send $t1 to the alu
-    - send $t2 to the alu
-    - alu performs a bitwise NOT operation (hardware circuit)
+    - alu performs a bitwise NOT operation on $t1 (hardware circuit)
+	- alu stores the 32-bit result in $t0
+	- Set condition code
     - $pc = $pc + 4 // advance the program counter b 4 bytes
 
     XOR (ex. XOR $t0, $t1, $t2):
     - send $t1 to the alu
-        - send $t2 to the alu
-        - alu performs a bitwise XOR operation (hardware circuit)
-        - Set condition code
-        - $pc = $pc + 4 // advance the program counter by 4 bytes
+    - send $t2 to the alu
+    - alu performs a bitwise XOR operation on $t1 and $t2 (hardware circuit)
+	- alu stores the 32-bit result in $t0
+    - Set condition code
+    - $pc = $pc + 4 // advance the program counter by 4 bytes
 
     jal (ex. jal 5000):
     - store the value of $pc in $ra
