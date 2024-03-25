@@ -44,15 +44,29 @@ Microcode steps:
     and (ex. AND $t0, $t1, $t2):
     - send $t1 to the alu
     - send $t2 to the alu
-    - alu performs a bitwise AND operation (harware circuit)
+    - alu performs a bitwise AND operation (hardware circuit)
     - Set condition code
     - $pc = $pc + 4 // advance the program counter by 4 bytes
 
-    OR:
+    OR (ex. OR $t0, $t1, $t2):
+    - send $t1 to the alu
+    - send $t2 to the alu
+    - alu performs a bitwise OR operation (hardware circuit)
+    - Set condition code
+    - $pc = $pc + 4 // advance the program counter by 4 bytes
 
-    NOT:
+    NOT (ex. NOT $t0, $t1, $t2):
+    - send $t1 to the alu
+    - send $t2 to the alu
+    - alu performs a bitwise NOT operation (hardware circuit)
+    - $pc = $pc + 4 // advance the program counter b 4 bytes
 
-    XOR:
+    XOR (ex. XOR $t0, $t1, $t2):
+    - send $t1 to the alu
+        - send $t2 to the alu
+        - alu performs a bitwise XOR operation (hardware circuit)
+        - Set condition code
+        - $pc = $pc + 4 // advance the program counter by 4 bytes
 
     jal (ex. jal 5000):
     - store the value of $pc in $ra
