@@ -6,16 +6,30 @@ Classes:
     Handles button presses, getting any text fields, as
     well as displaying and updating the text fields.
 
-    Handler: Reads a line from the MIPS file and updates the
-    memory and registers.
+    MIPSController: Parses the MIPS word and sends the results
+    to Controller to update the GUI
+
+    FileHandler: Reads a line from the MIPS file and sends
+    it to the MIPSController
 
     Main: Responsible for launching the JavaFX Window
 
 Microcode steps:
 
-    Load operation:
+    Load operation (ex. lw $t0, offset($at)):
+    - Calculate the memory address by adding the offset to the value in $at (addi instruction)
+    - Send the calculated memory address to the memory unit
+    - Memory unit reads the 32-bit word from the calculated memory address
+    - Store the data retrieved from memory into $t0
+    - Set condition code if necessary
+    - $pc = $pc + 4 // advance the program counter by 4 bytes
 
-    Store operation:
+    Store operation (ex. sw $t0, offset($at)):
+    - Calculate the effective memory address by adding the offset to the value in $at (addi instruction)
+    - Send the data from $t0 to the memory unit
+    - Memory unit stores the 32-bit word into the calculated memory address
+    - Set condition code if necessary
+    - $pc = $pc + 4 // advance the program counter by 4 bytes
 
     add (ex. add $t0, $t1, $t2):
     - send $t1 to the alu
