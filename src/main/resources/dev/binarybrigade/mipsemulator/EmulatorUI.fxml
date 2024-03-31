@@ -1,25 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.Pane?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.binarybrigade.mipsemulator.Controller">
    <children>
-      <Label layoutX="320.0" layoutY="23.0" text="Memory" />
-      <TextArea fx:id="memoryTextArea" layoutX="320.0" layoutY="40.0" prefHeight="338.0" prefWidth="450.0" />
-      <TextArea layoutX="484.0" layoutY="437.0" prefHeight="153.0" prefWidth="176.0" />
-      <Label layoutX="484.0" layoutY="420.0" text="ALU" />
       <TableView fx:id="registerTable" layoutX="14.0" layoutY="14.0" prefHeight="692.0" prefWidth="243.0">
         <columns>
-          <TableColumn fx:id="registerNameColumn" prefWidth="75.0" text="Name" />
-          <TableColumn fx:id="registerValueColumn" prefWidth="167.0" text="Value" />
+          <TableColumn fx:id="registerNameColumn" editable="false" prefWidth="75.0" sortable="false" text="Name" />
+          <TableColumn fx:id="registerValueColumn" prefWidth="167.0" sortable="false" text="Value" />
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
+      <TableView fx:id="memoryTable" layoutX="281.0" layoutY="14.0" prefHeight="692.0" prefWidth="466.0">
+        <columns>
+          <TableColumn fx:id="memoryAddressColumn" prefWidth="75.0" text="Address" />
+          <TableColumn fx:id="memoryValueColumn" prefWidth="376.0" sortable="false" text="Memory" />
+        </columns>
+      </TableView>
+      <TableView layoutX="771.0" layoutY="14.0" prefHeight="224.0" prefWidth="311.0">
+          <placeholder>
+              <Label text="" />
+          </placeholder>
+        <columns>
+          <TableColumn prefWidth="310.0" sortable="false" text="ALU" />
+        </columns>
+      </TableView>
+      <Button layoutX="771.0" layoutY="251.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="104.0" text="Step" />
    </children>
 </Pane>

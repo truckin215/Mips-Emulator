@@ -1,5 +1,7 @@
 package dev.binarybrigade.mipsemulator;
 
+import dev.binarybrigade.mipsemulator.model.MemoryList;
+import dev.binarybrigade.mipsemulator.model.MemoryRow;
 import dev.binarybrigade.mipsemulator.model.Register;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -9,19 +11,34 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.util.stream.Collectors;
+
 public class Controller {
-    public TextArea memoryTextArea;
     public TableView<Register> registerTable;
     public TableColumn<Register, String> registerNameColumn;
     public TableColumn<Register, Integer> registerValueColumn;
+    public TableView<MemoryRow> memoryTable;
+    public TableColumn<MemoryRow, Integer> memoryAddressColumn;
+    public TableColumn<MemoryRow, Integer> memoryValueColumn;
+    public int numberBase;
 
     @FXML
     public void initialize() {
+        // initialize base to binary
+        numberBase = 2;
+
         // initialize register table
         registerNameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
         registerValueColumn.setCellValueFactory(new PropertyValueFactory<>("Value"));
         registerTable.setItems(registerList);
+
+        // initialize memory table
+        MemoryList memoryList = new MemoryList();
+        memoryAddressColumn.setCellValueFactory(cellData -> cellData.getValue().address.asObject());
+        memoryValueColumn.setCellValueFactory(cellData -> cellData.getValue().value.asObject());
+        memoryTable.setItems(memoryList.memoryData);
     }
+
 
 
 

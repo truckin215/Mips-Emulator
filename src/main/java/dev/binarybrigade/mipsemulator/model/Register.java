@@ -1,31 +1,34 @@
 package dev.binarybrigade.mipsemulator.model;
 
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+
 public class Register {
-    private String name;
-    private Integer value;
+    private final SimpleStringProperty name;
+    private final SimpleIntegerProperty value;
 
     public Register(String name, int value) {
-        this.name = name;
-        this.value = value;
+        this.name = new SimpleStringProperty(name);
+        this.value = new SimpleIntegerProperty(value);
     }
     public Register(String name) {
-        this.name = name;
-        this.value = 0;
+        this.name = new SimpleStringProperty(name);
+        this.value = new SimpleIntegerProperty(0);
     }
 
     public String getName() {
-        return name;
+        return name.getValue();
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name.set(name);
     }
 
     public int getValue() {
-        return value;
+        return value.getValue();
     }
 
     public void setValue(int value) {
-        this.value = value;
+        this.value.set(value);
     }
 }
