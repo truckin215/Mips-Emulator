@@ -3,15 +3,15 @@ package dev.binarybrigade.mipsemulator.model;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
-public class Register {
-    private final SimpleStringProperty name;
-    private final SimpleIntegerProperty value;
+public class RegisterRow {
+    public final SimpleStringProperty name;
+    public final SimpleIntegerProperty value;
 
-    public Register(String name, int value) {
+    public RegisterRow(String name, int value) {
         this.name = new SimpleStringProperty(name);
         this.value = new SimpleIntegerProperty(value);
     }
-    public Register(String name) {
+    public RegisterRow(String name) {
         this.name = new SimpleStringProperty(name);
         this.value = new SimpleIntegerProperty(0);
     }
