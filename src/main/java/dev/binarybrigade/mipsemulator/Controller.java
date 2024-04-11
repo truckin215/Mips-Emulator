@@ -4,19 +4,19 @@ import dev.binarybrigade.mipsemulator.model.MemoryList;
 import dev.binarybrigade.mipsemulator.model.MemoryRow;
 import dev.binarybrigade.mipsemulator.model.RegisterList;
 import dev.binarybrigade.mipsemulator.model.RegisterRow;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.control.cell.PropertyValueFactory;
 
 public class Controller {
+    // Create register table and columns
     public TableView<RegisterRow> registerTable;
     public TableColumn<RegisterRow, String> registerNameColumn;
     public TableColumn<RegisterRow, String> registerValueColumn;
+
+    // Create memory table and columns
     public TableView<MemoryRow> memoryTable;
     public TableColumn<MemoryRow, String> memoryAddressColumn;
     public TableColumn<MemoryRow, String> memoryValueColumn;
@@ -24,15 +24,9 @@ public class Controller {
     // create a toggle group for the radio buttons
     public ToggleGroup numberBaseGroup;
     // create radio buttons
-    @FXML
-    RadioButton binaryRadioButton;
-    @FXML
-    RadioButton decmialRadioButton;
-    @FXML
-    RadioButton hexRadioButton;
-
-    // global memory list for our memory table
-    MemoryList memoryList = new MemoryList();
+    public RadioButton binaryRadioButton;
+    public RadioButton decmialRadioButton;
+    public RadioButton hexRadioButton;
 
     @FXML
     public void initialize() {
@@ -49,6 +43,7 @@ public class Controller {
         registerTable.setItems(RegisterList.registerList);
 
         // initialize memory table
+        new MemoryList();
         memoryAddressColumn.setCellValueFactory(cellData -> cellData.getValue().getAddressAsBinary());
         memoryValueColumn.setCellValueFactory(cellData -> cellData.getValue().getValueAsBinary());
         memoryTable.setItems(MemoryList.memoryList);

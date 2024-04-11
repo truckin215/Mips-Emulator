@@ -2,8 +2,6 @@ package dev.binarybrigade.mipsemulator.model;
 
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableStringValue;
-import javafx.beans.value.ObservableValue;
 
 public class RegisterRow {
     public final SimpleStringProperty name;
