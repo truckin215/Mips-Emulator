@@ -97,58 +97,21 @@ Microcode steps:
     Just fill them out and commit when done ****
 
 
-     switch (opcode) {
-                case ADD:
-                    // code here
-                    break;
-                case ADDI:
-                    // code here
-                    break;
-                case AND:
-                    // code here
-                    break;
-                case ANDI:
-                    // code here
-                    break;
-                case DIV:
-                    // code here        Steven
-                    break;
-                case MULT:
-                    // code here        Steven
-                    break;
-                case NOR:
-                    // code here
-                    break;
-                case OR:
-                    // code here
-                    break;
-                case ORI:
-                    // code here
-                    break;
-                case SLL:
-                    // code here
-                    break;
-                case SRL:
-                    // code here
-                    break;
-                case SUB:
-                    // code here        Steven
-                    break;
-                case XOR:
-                    // code here
-                    break;
-                case XORI:
-                    // code here
-                    break;
-                case MFHI:
-                    // code here
-                    break;
-                case MFLO:
-                    // code here
-                    break;
-                case LW:
-                    // code here
-                    break;
-                case SW:
-                    // code here
-                    break;
+ADD: James
+ADDI:
+AND:
+ANDI:
+DIV: Steven
+MULT: Steven
+NOR:
+OR:
+ORI:
+SLL:
+SRL:
+SUB: Steven
+XOR: James
+XORI:
+MFHI: James
+MFLO:
+LW:
+SW:
