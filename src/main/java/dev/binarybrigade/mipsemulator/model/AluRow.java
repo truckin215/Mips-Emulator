@@ -3,29 +3,23 @@ package dev.binarybrigade.mipsemulator.model;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
-public class RegisterRow {
-    public final SimpleStringProperty name;
+public class AluRow {
     public SimpleIntegerProperty value;
 
-    public RegisterRow(String name, int value) {
-        this.name = new SimpleStringProperty(name);
-        this.value = new SimpleIntegerProperty(value);
+    public AluRow() {
+        this.value = new SimpleIntegerProperty();
     }
-    public RegisterRow(String name) {
-        this.name = new SimpleStringProperty(name);
-        this.value = new SimpleIntegerProperty(0);
-    }
-
-    public String getName() {
-        return name.getValue();
-    }
-
-    public void setName(String name) {
-        this.name.set(name);
+    public AluRow(int value) {
+        this.value = new SimpleIntegerProperty();
+        this.setValue(value);
     }
 
     public int getValue() {
-        return value.getValue();
+        return value.get();
+    }
+
+    public SimpleIntegerProperty valueProperty() {
+        return value;
     }
 
     public void setValue(int value) {

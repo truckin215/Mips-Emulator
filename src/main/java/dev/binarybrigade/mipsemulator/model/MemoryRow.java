@@ -5,7 +5,7 @@ import javafx.beans.property.SimpleStringProperty;
 
 public class MemoryRow {
     public final SimpleIntegerProperty address;
-    public final SimpleIntegerProperty value;
+    public SimpleIntegerProperty value;
 
     public MemoryRow(int address, int value) {
         this.address = new SimpleIntegerProperty(address);

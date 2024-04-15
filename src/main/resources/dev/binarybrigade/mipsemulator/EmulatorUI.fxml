@@ -27,12 +27,12 @@
           <TableColumn fx:id="memoryValueColumn" maxWidth="250.0" minWidth="250.0" prefWidth="250.0" resizable="false" sortable="false" text="Memory" />
         </columns>
       </TableView>
-      <TableView layoutX="833.0" layoutY="14.0" prefHeight="224.0" prefWidth="311.0">
+      <TableView fx:id="aluTable" layoutX="833.0" layoutY="14.0" prefHeight="224.0" prefWidth="311.0">
           <placeholder>
               <Label text="" />
           </placeholder>
         <columns>
-          <TableColumn prefWidth="310.0" sortable="false" text="ALU" />
+          <TableColumn fx:id="aluColumn" prefWidth="310.0" sortable="false" text="ALU" />
         </columns>
       </TableView>
       <Button layoutX="833.0" layoutY="258.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="104.0" text="Step" />

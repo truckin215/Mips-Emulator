@@ -1,9 +1,6 @@
 package dev.binarybrigade.mipsemulator;
 
-import dev.binarybrigade.mipsemulator.model.MemoryList;
-import dev.binarybrigade.mipsemulator.model.MemoryRow;
-import dev.binarybrigade.mipsemulator.model.RegisterList;
-import dev.binarybrigade.mipsemulator.model.RegisterRow;
+import dev.binarybrigade.mipsemulator.model.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
@@ -20,6 +17,10 @@ public class Controller {
     public TableView<MemoryRow> memoryTable;
     public TableColumn<MemoryRow, String> memoryAddressColumn;
     public TableColumn<MemoryRow, String> memoryValueColumn;
+
+    // Create ALU table and column
+    public TableView<AluRow> aluTable;
+    public TableColumn<AluRow, String> aluColumn;
 
     // create a toggle group for the radio buttons
     public ToggleGroup numberBaseGroup;
@@ -47,6 +48,11 @@ public class Controller {
         memoryAddressColumn.setCellValueFactory(cellData -> cellData.getValue().getAddressAsBinary());
         memoryValueColumn.setCellValueFactory(cellData -> cellData.getValue().getValueAsBinary());
         memoryTable.setItems(MemoryList.memoryList);
+
+        // initialize alu table with binary values
+        new AluList();
+        aluColumn.setCellValueFactory(cellData -> cellData.getValue().getValueAsBinary());
+        aluTable.setItems(AluList.aluList);
     }
 
     // Bound to the binary radio button. Converts memory and register values to binary
