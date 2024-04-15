@@ -99,12 +99,12 @@ Microcode steps:
 
 ADD: James
 ADDI:
-AND:
+AND: Alex
 ANDI:
 DIV: Steven
 MULT: Steven
 NOR:
-OR:
+OR: Alex
 ORI:
 SLL:
 SRL:
