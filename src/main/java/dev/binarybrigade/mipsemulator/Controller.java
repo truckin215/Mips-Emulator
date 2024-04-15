@@ -1,11 +1,15 @@
 package dev.binarybrigade.mipsemulator;
 
 import dev.binarybrigade.mipsemulator.model.*;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.ToggleGroup;
+import javafx.stage.FileChooser;
+
+import java.io.File;
 
 public class Controller {
     // Create register table and columns
@@ -93,9 +97,22 @@ public class Controller {
     }
 
 
+    public void openFileChooser() {
+        //creates the FileChooser
+        FileChooser browser = new FileChooser();
+        browser.setTitle("Open File");
 
+        // set the directory
+        browser.setInitialDirectory(new File(System.getProperty("user.dir")));
 
+        //Limit by extension
+        browser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Text/MIPS Files","*.txt","*.s"),
+                new FileChooser.ExtensionFilter("All Files", "*.*")
+        );
+        //opens file browser
+        File file = browser.showOpenDialog(null);
+        new FileHandler(file);
 
-
-
+    }
 }

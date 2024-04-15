@@ -56,6 +56,9 @@
                   <Insets bottom="5.0" />
                </VBox.margin>
             </RadioButton>
+             <Button fx:id="FBrowse"  text="Insert File" onAction="#openFileChooser">
+
+             </Button>
          </children>
       </VBox>
    </children>
