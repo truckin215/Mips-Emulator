@@ -50,7 +50,25 @@ public class ExecutionHandler {
                 programCounter.setValue(programCounter.getValue() + 4);
                 break;
             case ADDI:
-                // code here
+                // clear ALU
+                AluList.clearALU();
+
+                // get register numbers
+                int srcReg = Integer.parseInt(currentWord.substring(6, 10), 2);
+                int destReg = Integer.parseInt(currentWord.substring(11, 15), 2);
+                int immediate = Integer.parseInt(currentWord.substring(16, 32), 2);
+
+                // read value from source register
+                int srcValue = RegisterList.registerList.get(srcReg).getValue();
+
+                // calculate result
+                int addIResult = srcValue + immediate;
+
+                //send result to destination register
+                RegisterList.registerList.get(destReg).setValue(addIResult);
+
+                //advance PC
+                programCounter.setValue(programCounter.getValue() + 4);
                 break;
             case AND:
                 // code here
