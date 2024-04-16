@@ -49,27 +49,31 @@ public class ExecutionHandler {
                 // advance the program counter
                 programCounter.setValue(programCounter.getValue() + 4);
                 break;
+
             case ADDI:
                 // clear ALU
                 AluList.clearALU();
 
-                // get register numbers
-                int srcReg = Integer.parseInt(currentWord.substring(6, 10), 2);
-                int destReg = Integer.parseInt(currentWord.substring(11, 15), 2);
-                int immediate = Integer.parseInt(currentWord.substring(16, 32), 2);
+                // decode source register
+                int addiSrcReg = Integer.parseInt(currentWord.substring(6, 10), 2);
+                // decode destination register
+                int addiDestReg = Integer.parseInt(currentWord.substring(11, 15), 2);
+                // decode immediate
+                int addiImmediate = Integer.parseInt(currentWord.substring(16, 32), 2);
 
                 // read value from source register
-                int srcValue = RegisterList.registerList.get(srcReg).getValue();
+                int addiSrcValue = RegisterList.registerList.get(addiSrcReg).getValue();
 
-                // calculate result
-                int addIResult = srcValue + immediate;
+                // perform addi operation
+                int addIResult = addiSrcValue + addiImmediate;
 
                 //send result to destination register
-                RegisterList.registerList.get(destReg).setValue(addIResult);
+                RegisterList.registerList.get(addiDestReg).setValue(addIResult);
 
                 //advance PC
                 programCounter.setValue(programCounter.getValue() + 4);
                 break;
+
             case AND:
                 // code here
                 break;
@@ -82,9 +86,32 @@ public class ExecutionHandler {
             case MULT:
                 // code here
                 break;
+
             case NOR:
-                // code here
+                // clear ALU
+                AluList.clearALU();
+
+                // decode first source register
+                int norSrcReg1 = Integer.parseInt(currentWord.substring(6, 10), 2);
+                // decode second source register
+                int norSrcReg2 = Integer.parseInt(currentWord.substring(11, 15), 2);
+                //decode destination register
+                int norDestReg = Integer.parseInt(currentWord.substring(16, 20), 2);
+
+                //read value from source registers
+                int norValue1 = RegisterList.registerList.get(norSrcReg1).getValue();
+                int norValue2 = RegisterList.registerList.get(norSrcReg2).getValue();
+
+                //perform nor operation
+                int norResult = ~(norValue1 | norValue2);
+
+                //send result to destination register
+                RegisterList.registerList.get(norDestReg).setValue(norResult);
+
+                //advance PC
+                programCounter.setValue(programCounter.getValue() + 4);
                 break;
+
             case OR:
                 // code here
                 break;
