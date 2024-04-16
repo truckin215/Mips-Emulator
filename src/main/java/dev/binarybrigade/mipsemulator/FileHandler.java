@@ -1,8 +1,13 @@
 package dev.binarybrigade.mipsemulator;
 
+import dev.binarybrigade.mipsemulator.model.MemoryRow;
+import dev.binarybrigade.mipsemulator.model.RegisterList;
+
 import java.io.*;
 import java.util.Arrays;
 import java.util.Collections;
+
+import static dev.binarybrigade.mipsemulator.model.RegisterList.registerList;
 
 
 public class FileHandler {
@@ -20,6 +25,7 @@ public class FileHandler {
     }
     public void lineReader(){
         try {
+            int address=0;
             while (reader.ready()) {
                 String line = reader.readLine();
                 String[] split = line.split(" ");
@@ -27,78 +33,97 @@ public class FileHandler {
                     for(int i=0;i<split.length;i++){
                         System.out.println(split[i]);
                     }
-                    instructionDecoding(split);
+                    instructionDecoding(split,address);
+                    address=+4;
                 }
             }
         }catch (IOException e){
             e.printStackTrace();
         }
     }
-    public void instructionDecoding(String[] split){
+    public void instructionDecoding(String[] split,int address){
+        int opcode =opcodeValue(split[0]);
+        if(!split[2].substring(0, 4).equals("zero")) {
+            int register = findRegisterIndex(split[2].substring(0, 2));
+        }else{
+            int register = 0;
+        }
+        int constant= Integer.parseInt(split[3]);
+        MemoryRow memoryRow = new MemoryRow(address, 16);
 
-        final int ADD = 32, ADDI = 8, AND = 36, ANDI = 12, DIV = 26, MULT = 24, NOR = 39, OR = 37, ORI = 13, SLL = 0, SRL = 2, SUB = 34, XOR = 38, XORI = 14, MFHI = 16, MFLO = 18, LW = 35, SW = 43;
-        switch(split[0]){
-            case "lw":
+    }
+    public int findRegisterIndex(String registerName) {
+        for (int i = 0; i < registerList.size(); i++) {
+            if (registerList.get(i).getName().equals(registerName)) {
+                return i; // Return the index if the names match
+            }
+        }
+        return -1; // Return -1 if the register name is not found in the list
+    }
+    public int opcodeValue(String opcode){
+        switch(opcode){
+            case "li":
                 // Load Instruction
-                break;
+                return (63);
             case "ADD":
                 // ADD instruction
-                break;
+                return (32);
             case "ADDI":
                 // ADDI instruction
-                break;
+                return (8);
             case "AND":
                 // AND instruction
-                break;
+                return (36);
             case "ANDI":
                 // ANDI instruction
-                break;
+                return (12);
             case "DIV":
                 // DIV instruction
-                break;
+                return (26);
             case "MULT":
                 // MULT instruction
-                break;
+                return (24);
             case "NOR":
                 // NOR instruction
-                break;
+                return (39);
             case "OR":
                 // OR instruction
-                break;
+                return (37);
             case "ORI":
                 // ORI instruction
-                break;
+                return (13);
             case "SLL":
                 // SLL instruction
-                break;
+                return (0);
             case "SRL":
                 // SRL instruction
-                break;
+                return (2);
             case "SUB":
                 // SUB instruction
-                break;
+                return (34);
             case "XOR":
                 // XOR instruction
-                break;
+                return (38);
             case "XORI":
                 // XORI instruction
-                break;
+                return (14);
             case "MFHI":
                 // MFHI instruction
-                break;
+                return (16);
             case "MFLO":
                 // MFLO instruction
-                break;
+                return (18);
             case "LW":
                 // LW instruction
-                break;
+                return (35);
             case "SW":
                 // SW instruction
-                break;
+                return (43);
             default:
                 // Handle unrecognized opcode
-                System.out.println("Unknown opcode: " + split[0]);
+                System.out.println("Unknown opcode: " + opcode);
                 break;
         }
+        return 0;
     }
 }
