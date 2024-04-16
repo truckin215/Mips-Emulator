@@ -36,6 +36,7 @@ public class ExecutionHandler {
                 int num0 = RegisterList.registerList.get(argReg0).getValue();
                 int num1 = RegisterList.registerList.get(argReg1).getValue();
 
+
                 // send int values to the ALU
                 AluList.sendToALU(num0);
                 AluList.sendToALU(num1);
@@ -71,11 +72,50 @@ public class ExecutionHandler {
                 programCounter.setValue(programCounter.getValue() + 4);
                 break;
             case AND:
-                // code here
+                // Clear ALU
+                AluList.clearALU();
 
+                //get register numbers
+                int argReg4 = Integer.parseInt(currentWord.substring(6, 10), 2);
+                int argReg5 = Integer.parseInt(currentWord.substring(11, 15), 2);
+                int destRegAND = Integer.parseInt(currentWord.substring(16, 20), 2);
+
+                //get int values
+                int num4 = RegisterList.registerList.get(argReg4).getValue();
+                int num5 = RegisterList.registerList.get(argReg5).getValue();
+
+                //send result to destination
+                AluList.sendToALU(num4);
+                AluList.sendToALU(num5);
+
+                //calculate result
+                int andResult = num4 & num5;
+
+                //send result
+                RegisterList.registerList.get(destRegAND).setValue(andResult);
+
+                //advance the program counter
+                programCounter.setValue(programCounter.getValue() + 4);
                 break;
             case ANDI:
-                // code here
+                //Clear ALU
+
+                //Get register numbers and immediate value
+                int srcReg = Integer.parseInt(currentWord.substring(6, 10), 2);
+                int immediate = Integer.parseInt(currentWord.substring(16, 31), 2);
+                int destRegANDI = Integer.parseInt(currentWord.substring(11, 15), 2);
+
+                //get int values
+                int srcNum = RegisterList.registerList.get(srcReg).getValue();
+
+                //calculate
+                int andiResult = srcNum & immediate;
+
+                // Store the result in the destination register
+                RegisterList.registerList.get(destRegANDI).setValue(andiResult);
+
+                // Advance the program counter
+                programCounter.setValue(programCounter.getValue() + 4);
                 break;
             case DIV:
                 // clear ALU
