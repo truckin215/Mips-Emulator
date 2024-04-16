@@ -68,7 +68,30 @@ public class ExecutionHandler {
                 // code here
                 break;
             case OR:
-                // code here
+                // clear ALU
+                AluList.clearALU();
+
+                // get register numbers
+                int orArgReg0 = Integer.parseInt(currentWord.substring(6, 10), 2);
+                int orArgReg1 = Integer.parseInt(currentWord.substring(11, 15), 2);
+                int orDestinationReg = Integer.parseInt(currentWord.substring(16, 20), 2);
+
+                // get int values from each register
+                int orNum0 = RegisterList.registerList.get(orArgReg0).getValue();
+                int orNum1 = RegisterList.registerList.get(orArgReg1).getValue();
+
+                // send int values to the ALU
+                AluList.sendToALU(orNum0);
+                AluList.sendToALU(orNum1);
+
+                // calculate result
+                int orResult = orNum0 | orNum1;
+
+                // send result to destination register
+                RegisterList.registerList.get(orDestinationReg).setValue(orResult);
+
+                // advance the program counter
+                programCounter.setValue(programCounter.getValue() + 4);
                 break;
             case ORI:
                 // code here
