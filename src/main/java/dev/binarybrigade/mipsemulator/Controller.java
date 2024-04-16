@@ -70,6 +70,10 @@ public class Controller {
         memoryAddressColumn.setCellValueFactory(cellData -> cellData.getValue().getAddressAsBinary());
         memoryValueColumn.setCellValueFactory(cellData -> cellData.getValue().getValueAsBinary());
         memoryTable.refresh();
+
+        // initialize ALU table
+        aluColumn.setCellValueFactory(cellData -> cellData.getValue().getValueAsBinary());
+        aluTable.refresh();
     }
     // Bound to the decimal radio button. Converts memory and register values to decimal
     @FXML
@@ -82,6 +86,10 @@ public class Controller {
         memoryAddressColumn.setCellValueFactory(cellData -> cellData.getValue().getAddressAsDecimal());
         memoryValueColumn.setCellValueFactory(cellData -> cellData.getValue().getValueAsDecimal());
         memoryTable.refresh();
+
+        // initialize ALU table
+        aluColumn.setCellValueFactory(cellData -> cellData.getValue().getValueAsDecimal());
+        aluTable.refresh();
     }
     // Bound to the hexadecimal radio button. Converts memory and register values to hex
     @FXML
@@ -94,6 +102,10 @@ public class Controller {
         memoryAddressColumn.setCellValueFactory(cellData -> cellData.getValue().getAddressAsHex());
         memoryValueColumn.setCellValueFactory(cellData -> cellData.getValue().getValueAsHex());
         memoryTable.refresh();
+
+        // initialize ALU table
+        aluColumn.setCellValueFactory(cellData -> cellData.getValue().getValueAsHex());
+        aluTable.refresh();
     }
 
 

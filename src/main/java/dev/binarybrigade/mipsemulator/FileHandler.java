@@ -1,11 +1,6 @@
 package dev.binarybrigade.mipsemulator;
 
-import dev.binarybrigade.mipsemulator.model.MemoryRow;
-import dev.binarybrigade.mipsemulator.model.RegisterList;
-
 import java.io.*;
-import java.util.Arrays;
-import java.util.Collections;
 
 import static dev.binarybrigade.mipsemulator.model.RegisterList.registerList;
 
@@ -34,7 +29,7 @@ public class FileHandler {
                         System.out.println(split[i]);
                     }
                     instructionDecoding(split,address);
-                    address=+4;
+                    address += 4;
                 }
             }
         }catch (IOException e){
