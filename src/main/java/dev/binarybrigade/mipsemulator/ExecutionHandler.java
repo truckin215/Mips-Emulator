@@ -72,13 +72,13 @@ public class ExecutionHandler {
                 AluList.clearALU();
 
                 // get register numbers
-                int orArgReg0 = Integer.parseInt(currentWord.substring(6, 10), 2);
-                int orArgReg1 = Integer.parseInt(currentWord.substring(11, 15), 2);
+                int argReg16 = Integer.parseInt(currentWord.substring(6, 10), 2);
+                int argReg17 = Integer.parseInt(currentWord.substring(11, 15), 2);
                 int orDestinationReg = Integer.parseInt(currentWord.substring(16, 20), 2);
 
                 // get int values from each register
-                int orNum0 = RegisterList.registerList.get(orArgReg0).getValue();
-                int orNum1 = RegisterList.registerList.get(orArgReg1).getValue();
+                int orNum0 = RegisterList.registerList.get(argReg16).getValue();
+                int orNum1 = RegisterList.registerList.get(argReg17).getValue();
 
                 // send int values to the ALU
                 AluList.sendToALU(orNum0);
