@@ -29,7 +29,7 @@ public class FileHandler {
             while (reader.ready()) {
                 String line = reader.readLine();
                 String[] split = line.split(" ");
-                if (!split[0].equals("#")){
+                if (!split[0].startsWith("#")){
                     for(int i=0;i<split.length;i++){
                         System.out.println(split[i]);
                     }
@@ -63,6 +63,7 @@ public class FileHandler {
                 return i; // Return the index if the names match
             }
         }
+        System.out.println("register not found "+registerName);
         return -1; // Return -1 if the register name is not found in the list
     }
     public int opcodeValue(String opcode){
