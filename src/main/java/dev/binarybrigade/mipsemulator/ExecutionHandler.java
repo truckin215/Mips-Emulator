@@ -168,22 +168,22 @@ public class ExecutionHandler {
 
                 // get register numbers
                 int argReg18 = Integer.parseInt(currentWord.substring(6, 10), 2);
-                int argReg19 = Integer.parseInt(currentWord.substring(11, 15), 2);
-                int oriDestinationReg = Integer.parseInt(currentWord.substring(16, 20), 2);
+                int oriDestination = Integer.parseInt(currentWord.substring(11, 15), 2);
+                int constant = Integer.parseInt(currentWord.substring(16, 32), 2);
 
                 // get int values from each register
                 int orNum0 = RegisterList.registerList.get(argReg18).getValue();
-                int orNum1 = RegisterList.registerList.get(argReg19).getValue();
+
 
                 // send int values to the ALU
                 AluList.sendToALU(orNum0);
-                AluList.sendToALU(orNum1);
+                AluList.sendToALU(constant);
 
                 // calculate result
-                int orResult = orNum0 | orNum1;
+                int oriResult = orNum0 | constant;
 
                 // send result to destination register
-                RegisterList.registerList.get(oriDestinationReg).setValue(orResult);
+                RegisterList.registerList.get(oriDestination).setValue(oriResult);
 
                 // advance the program counter
                 programCounter.setValue(programCounter.getValue() + 4);
