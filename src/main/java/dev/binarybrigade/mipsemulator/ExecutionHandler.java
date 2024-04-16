@@ -101,15 +101,15 @@ public class ExecutionHandler {
                 //Clear ALU
 
                 //Get register numbers and immediate value
-                int srcReg = Integer.parseInt(currentWord.substring(6, 10), 2);
-                int immediate = Integer.parseInt(currentWord.substring(16, 31), 2);
+                int srcReg2 = Integer.parseInt(currentWord.substring(6, 10), 2);
+                int immediate2 = Integer.parseInt(currentWord.substring(16, 31), 2);
                 int destRegANDI = Integer.parseInt(currentWord.substring(11, 15), 2);
 
                 //get int values
-                int srcNum = RegisterList.registerList.get(srcReg).getValue();
+                int srcNum = RegisterList.registerList.get(srcReg2).getValue();
 
                 //calculate
-                int andiResult = srcNum & immediate;
+                int andiResult = srcNum & immediate2;
 
                 // Store the result in the destination register
                 RegisterList.registerList.get(destRegANDI).setValue(andiResult);
