@@ -43,13 +43,18 @@ public class FileHandler {
     }
     public void instructionDecoding(String[] split,int address){
         int opcode =opcodeValue(split[0]);
-        if(!split[2].substring(0, 4).equals("zero")) {
+        if(!split[1].startsWith("zero")) {
             int register = findRegisterIndex(split[2].substring(0, 2));
         }else{
             int register = 0;
         }
-        int constant= Integer.parseInt(split[3]);
-        MemoryRow memoryRow = new MemoryRow(address, 16);
+        for(int i=2;i<split.length;i++){
+            //for constant int constant= Integer.parseInt(split[3]);
+            //for another reg int register2 = findRegisterIndex(split[i].substring(0,2))
+            //combine opcode, reg, and constant here
+        }
+        //combine to make memory address
+        //MemoryRow memoryRow = new MemoryRow(address, result);
 
     }
     public int findRegisterIndex(String registerName) {
