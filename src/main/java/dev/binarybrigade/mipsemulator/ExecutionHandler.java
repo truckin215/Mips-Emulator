@@ -105,7 +105,7 @@ public class ExecutionHandler {
                 //send result to destination register
                 RegisterList.registerList.get(norDestReg).setValue(norResult);
 
-                //advance PC
+                // advance PC
                 programCounter.setValue(programCounter.getValue() + 4);
                 break;
             case OR:
