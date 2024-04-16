@@ -98,14 +98,14 @@ Microcode steps:
 
 
 ADD: James
-ADDI:
-AND:
-ANDI:
+ADDI: Omar
+AND:Alex
+ANDI:Alex
 DIV: Steven
 MULT: Steven
-NOR:
-OR:
-ORI:
+NOR:Omar
+OR:Connor
+ORI:Connor
 SLL:
 SRL:
 SUB: Steven
