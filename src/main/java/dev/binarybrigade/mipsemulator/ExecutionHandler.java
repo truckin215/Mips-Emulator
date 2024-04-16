@@ -53,7 +53,30 @@ public class ExecutionHandler {
                 // code here
                 break;
             case AND:
-                // code here
+                // Clear ALU
+                AluList.clearALU();
+
+                //get register numbers
+                int argReg4 = Integer.parseInt(currentWord.substring(6, 10), 2);
+                int argReg5 = Integer.parseInt(currentWord.substring(11, 15), 2);
+                int destReg = Integer.parseInt(currentWord.substring(16, 20), 2);
+
+                //get int values
+                int num4 = RegisterList.registerList.get(argReg4).getValue();
+                int num5 = RegisterList.registerList.get(argReg5).getValue();
+
+                //send result to destination
+                AluList.sendToALU(num4);
+                AluList.sendToALU(num5);
+
+                //calculate result
+                int andResult = num4 & num5;
+
+                //send result
+                RegisterList.registerList.get(destReg).setValue(andResult);
+
+                //advance the program counter
+                programCounter.setValue(programCounter.getValue() + 4);
                 break;
             case ANDI:
                 // code here
