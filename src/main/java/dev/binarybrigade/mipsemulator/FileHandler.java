@@ -13,9 +13,11 @@ public class FileHandler {
         try {
             reader = new BufferedReader(new FileReader(currentFile));
             lineReader();
-        }catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             System.out.println("file not found");
             e.printStackTrace();
+        } catch (Exception e) {
+            System.out.println("Issue with file input");
         }
     }
     public void lineReader(){
