@@ -107,7 +107,7 @@ public class Controller {
 
         //Limit by extension
         browser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Text/MIPS Files","*.txt","*.s"),
+                new FileChooser.ExtensionFilter("Text/MIPS Files","*.txt","*.s","*.asm"),
                 new FileChooser.ExtensionFilter("All Files", "*.*")
         );
         //opens file browser
