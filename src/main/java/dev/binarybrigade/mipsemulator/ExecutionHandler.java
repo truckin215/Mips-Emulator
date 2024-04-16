@@ -122,13 +122,40 @@ public class ExecutionHandler {
                 AluList.clearALU();
 
                 // get register numbers
-                int argReg16 = Integer.parseInt(currentWord.substring(6, 10), 2);
-                int argReg17 = Integer.parseInt(currentWord.substring(11, 15), 2);
+                int argReg14 = Integer.parseInt(currentWord.substring(6, 10), 2);
+                int argReg15 = Integer.parseInt(currentWord.substring(11, 15), 2);
                 int orDestinationReg = Integer.parseInt(currentWord.substring(16, 20), 2);
 
                 // get int values from each register
-                int orNum0 = RegisterList.registerList.get(argReg16).getValue();
-                int orNum1 = RegisterList.registerList.get(argReg17).getValue();
+                int Num14 = RegisterList.registerList.get(argReg14).getValue();
+                int Num15 = RegisterList.registerList.get(argReg15).getValue();
+
+                // send int values to the ALU
+                AluList.sendToALU(Num14);
+                AluList.sendToALU(Num15);
+
+                // calculate result
+                int orResult = Num14 | Num15;
+
+                // send result to destination register
+                RegisterList.registerList.get(orDestinationReg).setValue(orResult);
+
+                // advance the program counter
+                programCounter.setValue(programCounter.getValue() + 4);
+                break;
+            case ORI:
+
+                // clear ALU
+                AluList.clearALU();
+
+                // get register numbers
+                int argReg18 = Integer.parseInt(currentWord.substring(6, 10), 2);
+                int argReg19 = Integer.parseInt(currentWord.substring(11, 15), 2);
+                int oriDestinationReg = Integer.parseInt(currentWord.substring(16, 20), 2);
+
+                // get int values from each register
+                int orNum0 = RegisterList.registerList.get(argReg18).getValue();
+                int orNum1 = RegisterList.registerList.get(argReg19).getValue();
 
                 // send int values to the ALU
                 AluList.sendToALU(orNum0);
@@ -138,13 +165,10 @@ public class ExecutionHandler {
                 int orResult = orNum0 | orNum1;
 
                 // send result to destination register
-                RegisterList.registerList.get(orDestinationReg).setValue(orResult);
+                RegisterList.registerList.get(oriDestinationReg).setValue(orResult);
 
                 // advance the program counter
                 programCounter.setValue(programCounter.getValue() + 4);
-                break;
-            case ORI:
-                // code here
                 break;
             case SLL:
                 // code here
