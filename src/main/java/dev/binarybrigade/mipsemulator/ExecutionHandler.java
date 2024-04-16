@@ -54,15 +54,65 @@ public class ExecutionHandler {
                 break;
             case AND:
                 // code here
+
                 break;
             case ANDI:
                 // code here
                 break;
             case DIV:
-                // code here
+                // clear ALU
+                AluList.clearALU();
+
+                // get register numbers
+               int argReg8 = Integer.parseInt(currentWord.substring(6, 10), 2);
+               int argReg9 = Integer.parseInt(currentWord.substring(11, 15), 2);
+               int destinationRegDiv= Integer.parseInt(currentWord.substring(16, 20), 2);
+
+               //get int values from each register
+               int num8 = RegisterList.registerList.get(argReg8).getValue();
+               int num9 = RegisterList.registerList.get(argReg9).getValue();
+
+               //send int values to the ALU
+               AluList.sendToALU(num8);
+               AluList.sendToALU(num9);
+
+               //calculate result
+               int quotient = num8 / num9;
+
+               //send result to the destination register
+               RegisterList.registerList.get(destinationRegDiv).setValue(quotient);
+
+                // advance the program counter
+                programCounter.setValue(programCounter.getValue() + 4);
+
                 break;
             case MULT:
-                // code here
+                //clear ALU
+                AluList.clearALU();
+
+                // get register numbers
+                int argReg10 = Integer.parseInt(currentWord.substring(6, 10), 2);
+                int argReg11 = Integer.parseInt(currentWord.substring(11, 15), 2);
+                int destinationRegMult= Integer.parseInt(currentWord.substring(16, 20), 2);
+
+                //get int values from each register
+                int num10 = RegisterList.registerList.get(argReg10).getValue();
+                int num11 = RegisterList.registerList.get(argReg11).getValue();
+
+                //send int values to the ALU
+                AluList.sendToALU(num10);
+                AluList.sendToALU(num11);
+
+                //calculate result
+                int product = num10 * num11;
+
+                //send result to the destination register
+                RegisterList.registerList.get(destinationRegMult).setValue(product);
+
+                // advance the program counter
+                programCounter.setValue(programCounter.getValue() + 4);
+
+
                 break;
             case NOR:
                 // code here
@@ -80,7 +130,30 @@ public class ExecutionHandler {
                 // code here
                 break;
             case SUB:
-                // code here
+                // clear ALU
+                AluList.clearALU();
+
+                // get register numbers
+                int argReg22 = Integer.parseInt(currentWord.substring(6, 10), 2);
+                int argReg23 = Integer.parseInt(currentWord.substring(11, 15), 2);
+                int destinationRegSub = Integer.parseInt(currentWord.substring(16, 20), 2);
+
+                // get int values from each register
+                int num22 = RegisterList.registerList.get(argReg22).getValue();
+                int num23 = RegisterList.registerList.get(argReg23).getValue();
+
+                // send int values to the ALU
+                AluList.sendToALU(num22);
+                AluList.sendToALU(num23);
+
+                // calculate result
+                int difference = num22 + num23;
+
+                // send result to destination register
+                RegisterList.registerList.get(destinationRegSub).setValue(difference);
+
+                // advance the program counter
+                programCounter.setValue(programCounter.getValue() + 4);
                 break;
             case XOR:
                 // code here
