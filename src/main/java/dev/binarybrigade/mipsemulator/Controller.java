@@ -56,6 +56,9 @@ public class Controller {
         // initialize alu table with binary values
         aluColumn.setCellValueFactory(cellData -> cellData.getValue().getValueAsBinary());
         aluTable.setItems(AluList.aluList);
+
+        // initialize cache
+
     }
 
     @FXML
