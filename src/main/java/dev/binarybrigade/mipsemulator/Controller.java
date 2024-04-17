@@ -144,6 +144,6 @@ public class Controller {
         //opens file browser
         File file = browser.showOpenDialog(null);
         new FileHandler(file);
-
+        memoryTable.refresh();
     }
 }

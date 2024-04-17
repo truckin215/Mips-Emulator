@@ -20,7 +20,7 @@ public class FileHandler {
             System.out.println("file not found");
             e.printStackTrace();
         } catch (Exception e) {
-            System.out.println("Issue with file input");
+          System.out.println("Issue with file input");
         }
     }
     public void lineReader(){
@@ -47,7 +47,10 @@ public class FileHandler {
         String srcReg;
         String targReg;
         String immediate;
-        int[] targetRegister= new int[10];
+        String funct;
+        String destinationReg;
+        String shfitAmount;
+        int[] inputRegisters= new int[10];
         int r=0;//register count
         int constant=0;
         int result=0;
@@ -57,9 +60,9 @@ public class FileHandler {
             }
             if(split[i].startsWith("$")) {
                 if (!split[1].startsWith("zero")) {
-                    targetRegister[r] = findRegisterIndex(split[i].substring(0, 3));
+                    inputRegisters[r] = findRegisterIndex(split[i].substring(0, 3));
                 } else {
-                    targetRegister[r] = 0;
+                    inputRegisters[r] = 0;
                 }
                 r++;
             }else{
@@ -67,34 +70,41 @@ public class FileHandler {
             }
         }
         //memory line builder
-        // immediate format(addi): 000000(opcode)+00000(source register)+00000(register target)+0000000000000000(16bit immediate value) register target likley empty
-
+        // immediate format(addi): 000000(opcode)+00000(source register)+00000(register target)+0000000000000000(16bit immediate value) register target same as src
         if(!(constant==0)){
             memoryData=binaryFormater(memoryData,6);
-            srcReg=Integer.toBinaryString(targetRegister[0]);
+            srcReg=Integer.toBinaryString(inputRegisters[0]);
             srcReg=binaryFormater(srcReg,5);
             targReg=srcReg;
             immediate=Integer.toBinaryString(constant);
             immediate=binaryFormater(immediate,16);
             System.out.println(memoryData+" "+srcReg+" "+targReg+" "+immediate);
             memoryData= memoryData+srcReg+targReg+immediate;
-            result = Integer.parseInt(memoryData, 2);
-            System.out.println(result);
+            result = (int) Long.parseUnsignedLong(memoryData, 2);
 
+        }else{
+        // Register format (add): 000000(opcode)+00000(source register)+00000(register target)+00000(Destination register)+00000(Shiftamount)+000000(funct field opcode field for R-types)
+            memoryData=binaryFormater(memoryData,6);
+            if(r<2) {
+                srcReg = binaryFormater(Integer.toBinaryString(inputRegisters[0]), 5);
+                targReg = binaryFormater(Integer.toBinaryString(inputRegisters[1]), 5);
+                destinationReg = srcReg;
+            }else{
+                destinationReg = binaryFormater(Integer.toBinaryString(inputRegisters[0]), 5);
+                srcReg = binaryFormater(Integer.toBinaryString(inputRegisters[1]), 5);
+                targReg = binaryFormater(Integer.toBinaryString(inputRegisters[2]), 5);
+            }
+            funct=memoryData;
+            shfitAmount=binaryFormater("0",5);//shift not currently supported
+            System.out.println(memoryData+" "+srcReg+" "+targReg+" "+destinationReg+" "+shfitAmount+" "+funct);
+            memoryData= memoryData+srcReg+targReg+destinationReg+shfitAmount+funct;
+            result = (int) Long.parseUnsignedLong(memoryData, 2);///This is a overflow error waiting to happen
         }
         //update memory
         MemoryRow targetMemoryRow = MemoryList.memoryList.stream().filter(memoryRow -> memoryRow.getAddress() == address).findFirst().get();
         targetMemoryRow.setValue(result);
 
-
-            //for another reg int register2 = findRegisterIndex(split[i].substring(0,2))
-            //combine opcode, reg, and constant here
-        //combine to make memory row
-       // MemoryRow memoryRow = new MemoryRow(address, result);
-
-
-        // Register format (add): 000000(opcode)+00000(source register)+00000(register target)+00000(Destination register)+00000(Shiftamount)+00000(funct field opcode field for R-types)
-    }
+ }
     public int findRegisterIndex(String registerName) {
         for (int i = 0; i < registerList.size(); i++) {
             if (registerList.get(i).getName().equals(registerName)) {
@@ -105,8 +115,9 @@ public class FileHandler {
         return -1; // Return -1 if the register name is not found in the list
     }
     public int opcodeValue(String opcode){
+        opcode=opcode.toUpperCase();
         switch(opcode){
-            case "li":
+            case "LI":
                 // Load Instruction
                 return (31);
             case "ADD":
