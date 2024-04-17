@@ -75,7 +75,7 @@ public class FileHandler {
             srcReg=binaryFormater(srcReg,5);
             targReg=srcReg;
             immediate=Integer.toBinaryString(constant);
-            immediate=binaryFormater(srcReg,16);
+            immediate=binaryFormater(immediate,16);
             System.out.println(memoryData+" "+srcReg+" "+targReg+" "+immediate);
             memoryData= memoryData+srcReg+targReg+immediate;
             result = Integer.parseInt(memoryData, 2);
