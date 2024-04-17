@@ -1,7 +1,6 @@
 package dev.binarybrigade.mipsemulator;
 
 import dev.binarybrigade.mipsemulator.model.*;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
