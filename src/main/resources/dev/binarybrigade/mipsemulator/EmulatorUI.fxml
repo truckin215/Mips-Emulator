@@ -9,10 +9,11 @@
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.binarybrigade.mipsemulator.Controller">
    <children>
-      <TableView fx:id="registerTable" layoutX="14.0" layoutY="14.0" prefHeight="692.0" prefWidth="300.0">
+      <TableView fx:id="registerTable" layoutX="14.0" layoutY="38.0" prefHeight="533.0" prefWidth="300.0">
         <columns>
           <TableColumn fx:id="registerNameColumn" editable="false" maxWidth="50.0" prefWidth="50.0" resizable="false" sortable="false" text="Name" />
           <TableColumn fx:id="registerValueColumn" maxWidth="250.0" minWidth="250.0" prefWidth="250.0" resizable="false" sortable="false" text="Value" />
@@ -21,13 +22,13 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <TableView fx:id="memoryTable" layoutX="323.0" layoutY="14.0" maxHeight="692.0" maxWidth="500.0" minHeight="692.0" minWidth="500.0" prefHeight="692.0" prefWidth="500.0">
+      <TableView fx:id="memoryTable" layoutX="323.0" layoutY="38.0" maxHeight="692.0" maxWidth="500.0" minHeight="668.0" minWidth="500.0" prefHeight="668.0" prefWidth="500.0">
         <columns>
           <TableColumn fx:id="memoryAddressColumn" maxWidth="250.0" minWidth="250.0" prefWidth="250.0" resizable="false" text="Address" />
           <TableColumn fx:id="memoryValueColumn" maxWidth="250.0" minWidth="250.0" prefWidth="250.0" resizable="false" sortable="false" text="Memory" />
         </columns>
       </TableView>
-      <TableView fx:id="aluTable" layoutX="833.0" layoutY="14.0" prefHeight="224.0" prefWidth="311.0">
+      <TableView fx:id="aluTable" layoutX="14.0" layoutY="581.0" prefHeight="125.0" prefWidth="300.0">
           <placeholder>
               <Label text="" />
           </placeholder>
@@ -35,9 +36,17 @@
           <TableColumn fx:id="aluColumn" prefWidth="310.0" sortable="false" text="ALU" />
         </columns>
       </TableView>
-      <Button layoutX="833.0" layoutY="258.0" mnemonicParsing="false" onAction="#step" prefHeight="45.0" prefWidth="104.0" text="Step" />
-      <VBox layoutX="835.0" layoutY="321.0" prefHeight="79.0" prefWidth="100.0">
+      <VBox layoutX="1154.0" layoutY="289.0" prefHeight="79.0" prefWidth="100.0">
          <children>
+            <Button minHeight="45.0" minWidth="104.0" mnemonicParsing="false" onAction="#step" prefHeight="45.0" prefWidth="104.0" text="Step">
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </Button>
+             <Button fx:id="FBrowse" maxHeight="45.0" maxWidth="104.0" minHeight="45.0" minWidth="104.0" onAction="#openFileChooser" prefHeight="45.0" prefWidth="104.0" text="Insert File">
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin></Button>
             <RadioButton fx:id="binaryRadioButton" mnemonicParsing="false" onAction="#binaryView" selected="true" text="Binary">
                <VBox.margin>
                   <Insets bottom="5.0" />
@@ -56,10 +65,37 @@
                   <Insets bottom="5.0" />
                </VBox.margin>
             </RadioButton>
-             <Button fx:id="FBrowse" onAction="#openFileChooser" text="Insert File">
-
-             </Button>
          </children>
       </VBox>
+      <TableView layoutX="833.0" layoutY="40.0" prefHeight="125.0" prefWidth="311.0">
+        <columns>
+          <TableColumn prefWidth="310.0" text="L1" />
+        </columns>
+      </TableView>
+      <TableView layoutX="833.0" layoutY="173.0" prefHeight="250.0" prefWidth="311.0">
+         <columns>
+            <TableColumn prefWidth="310.0" text="L2" />
+         </columns>
+      </TableView>
+      <TableView layoutX="833.0" layoutY="433.0" prefHeight="272.0" prefWidth="311.0">
+         <columns>
+            <TableColumn prefWidth="310.0" text="L3" />
+         </columns>
+      </TableView>
+      <Label layoutX="127.0" layoutY="9.0" text="Registers">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="539.0" layoutY="9.0" text="Memory">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="965.0" layoutY="9.0" text="Cache">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+      </Label>
    </children>
 </Pane>
