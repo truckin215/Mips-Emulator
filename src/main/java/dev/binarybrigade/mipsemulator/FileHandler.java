@@ -78,7 +78,7 @@ public class FileHandler {
             immediate=binaryFormater(srcReg,16);
             System.out.println(memoryData+" "+srcReg+" "+targReg+" "+immediate);
             memoryData= memoryData+srcReg+targReg+immediate;
-            result=Integer.parseInt(memoryData, 2);
+            result = Integer.parseInt(memoryData, 2);
             System.out.println(result);
         }
         //update memory
@@ -106,7 +106,7 @@ public class FileHandler {
         switch(opcode){
             case "li":
                 // Load Instruction
-                return (63);
+                return (31);
             case "ADD":
                 // ADD instruction
                 return (32);
