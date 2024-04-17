@@ -100,8 +100,8 @@ public class FileHandler {
     public int opcodeValue(String opcode){
         switch(opcode){
             case "li":
-                // Load Instruction
-                return (63);
+                // Load Instruction uses LUI opcode, since we only really load constants.
+                return (31);
             case "ADD":
                 // ADD instruction
                 return (32);
