@@ -24,6 +24,15 @@ public class Controller {
     // Create ALU table and column
     public TableView<AluRow> aluTable;
     public TableColumn<AluRow, String> aluColumn;
+    // Create L1 table and column
+    public TableView<CacheRow> L1Table;
+
+    // Create L2 table and column
+    public TableView<CacheRow> L2Table;
+
+    // Create L3 table and column
+    public TableView<CacheRow> L3Table;
+
 
     // create a toggle group for the radio buttons
     public ToggleGroup numberBaseGroup;

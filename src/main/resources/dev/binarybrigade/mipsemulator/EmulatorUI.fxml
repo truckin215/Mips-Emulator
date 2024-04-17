@@ -67,17 +67,26 @@
             </RadioButton>
          </children>
       </VBox>
-      <TableView layoutX="833.0" layoutY="40.0" prefHeight="125.0" prefWidth="311.0">
+      <TableView fx:id="L1Table" layoutX="833.0" layoutY="40.0" prefHeight="125.0" prefWidth="311.0">
+          <placeholder>
+              <Label text="" />
+          </placeholder>
         <columns>
-          <TableColumn prefWidth="310.0" text="L1" />
+          <TableColumn prefWidth="310.0" sortable="false" text="L1" />
         </columns>
       </TableView>
-      <TableView layoutX="833.0" layoutY="173.0" prefHeight="250.0" prefWidth="311.0">
+      <TableView fx:id="L2Table" layoutX="833.0" layoutY="173.0" prefHeight="250.0" prefWidth="311.0">
+          <placeholder>
+              <Label text="" />
+          </placeholder>
          <columns>
             <TableColumn prefWidth="310.0" text="L2" />
          </columns>
       </TableView>
-      <TableView layoutX="833.0" layoutY="433.0" prefHeight="272.0" prefWidth="311.0">
+      <TableView fx:id="L3Table" layoutX="833.0" layoutY="433.0" prefHeight="272.0" prefWidth="311.0">
+          <placeholder>
+              <Label text="" />
+          </placeholder>
          <columns>
             <TableColumn prefWidth="310.0" text="L3" />
          </columns>
