@@ -35,7 +35,7 @@
           <TableColumn fx:id="aluColumn" prefWidth="310.0" sortable="false" text="ALU" />
         </columns>
       </TableView>
-      <Button layoutX="833.0" layoutY="258.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="104.0" text="Step" />
+      <Button layoutX="833.0" layoutY="258.0" mnemonicParsing="false" onAction="#step" prefHeight="45.0" prefWidth="104.0" text="Step" />
       <VBox layoutX="835.0" layoutY="321.0" prefHeight="79.0" prefWidth="100.0">
          <children>
             <RadioButton fx:id="binaryRadioButton" mnemonicParsing="false" onAction="#binaryView" selected="true" text="Binary">
@@ -56,7 +56,7 @@
                   <Insets bottom="5.0" />
                </VBox.margin>
             </RadioButton>
-             <Button fx:id="FBrowse"  text="Insert File" onAction="#openFileChooser">
+             <Button fx:id="FBrowse" onAction="#openFileChooser" text="Insert File">
 
              </Button>
          </children>

@@ -54,9 +54,17 @@ public class Controller {
         memoryTable.setItems(MemoryList.memoryList);
 
         // initialize alu table with binary values
-        new AluList();
         aluColumn.setCellValueFactory(cellData -> cellData.getValue().getValueAsBinary());
         aluTable.setItems(AluList.aluList);
+    }
+
+    @FXML
+    public void step() {
+        ExecutionHandler.executeLine();
+        registerTable.refresh();
+        aluTable.setItems(AluList.aluList);
+        aluTable.refresh();
+        memoryTable.refresh();
     }
 
     // Bound to the binary radio button. Converts memory and register values to binary
