@@ -80,10 +80,12 @@ public class FileHandler {
             memoryData= memoryData+srcReg+targReg+immediate;
             result = Integer.parseInt(memoryData, 2);
             System.out.println(result);
+
         }
         //update memory
         MemoryRow targetMemoryRow = MemoryList.memoryList.stream().filter(memoryRow -> memoryRow.getAddress() == address).findFirst().get();
         targetMemoryRow.setValue(result);
+
 
             //for another reg int register2 = findRegisterIndex(split[i].substring(0,2))
             //combine opcode, reg, and constant here
@@ -168,7 +170,7 @@ public class FileHandler {
         }
         return 0;
     }
-    public String binaryFormater(String input, int size){
+    public static String binaryFormater(String input, int size){
         //function adds zeros to front of strings to match desired length so 11, with size 5 = 00011
         StringBuilder inputBuilder = new StringBuilder(input);
         for(int n = input.length(); n<size; n++){
