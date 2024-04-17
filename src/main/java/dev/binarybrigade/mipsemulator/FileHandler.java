@@ -1,5 +1,6 @@
 package dev.binarybrigade.mipsemulator;
 
+import dev.binarybrigade.mipsemulator.model.MemoryList;
 import dev.binarybrigade.mipsemulator.model.MemoryRow;
 
 import java.io.*;
@@ -67,6 +68,7 @@ public class FileHandler {
         }
         //memory line builder
         // immediate format(addi): 000000(opcode)+00000(source register)+00000(register target)+0000000000000000(16bit immediate value) register target likley empty
+
         if(!(constant==0)){
             memoryData=binaryFormater(memoryData,6);
             srcReg=Integer.toBinaryString(targetRegister[0]);
@@ -76,9 +78,12 @@ public class FileHandler {
             immediate=binaryFormater(srcReg,16);
             System.out.println(memoryData+" "+srcReg+" "+targReg+" "+immediate);
             memoryData= memoryData+srcReg+targReg+immediate;
-           //result=Integer.parseInt(memoryData, 2);
-             System.out.println(memoryData);
+            result = Integer.parseInt(memoryData, 2);
+            System.out.println(result);
         }
+        //update memory
+        MemoryRow targetMemoryRow = MemoryList.memoryList.stream().filter(memoryRow -> memoryRow.getAddress() == address).findFirst().get();
+        targetMemoryRow.setValue(result);
 
             //for another reg int register2 = findRegisterIndex(split[i].substring(0,2))
             //combine opcode, reg, and constant here
@@ -100,7 +105,7 @@ public class FileHandler {
     public int opcodeValue(String opcode){
         switch(opcode){
             case "li":
-                // Load Instruction uses LUI opcode, since we only really load constants.
+                // Load Instruction
                 return (31);
             case "ADD":
                 // ADD instruction
