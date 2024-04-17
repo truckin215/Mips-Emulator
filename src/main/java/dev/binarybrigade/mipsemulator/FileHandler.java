@@ -71,8 +71,8 @@ public class FileHandler {
         }
         //memory line builder
         // immediate format(addi): 000000(opcode)+00000(source register)+00000(register target)+0000000000000000(16bit immediate value) register target same as src
+        memoryData=binaryFormater(memoryData,6);
         if(!(constant==0)){
-            memoryData=binaryFormater(memoryData,6);
             srcReg=Integer.toBinaryString(inputRegisters[0]);
             srcReg=binaryFormater(srcReg,5);
             targReg=srcReg;
@@ -80,11 +80,9 @@ public class FileHandler {
             immediate=binaryFormater(immediate,16);
             System.out.println(memoryData+" "+srcReg+" "+targReg+" "+immediate);
             memoryData= memoryData+srcReg+targReg+immediate;
-            result = (int) Long.parseUnsignedLong(memoryData, 2);
 
         }else{
         // Register format (add): 000000(opcode)+00000(source register)+00000(register target)+00000(Destination register)+00000(Shiftamount)+000000(funct field opcode field for R-types)
-            memoryData=binaryFormater(memoryData,6);
             if(r<2) {
                 srcReg = binaryFormater(Integer.toBinaryString(inputRegisters[0]), 5);
                 targReg = binaryFormater(Integer.toBinaryString(inputRegisters[1]), 5);
@@ -98,8 +96,8 @@ public class FileHandler {
             shfitAmount=binaryFormater("0",5);//shift not currently supported
             System.out.println(memoryData+" "+srcReg+" "+targReg+" "+destinationReg+" "+shfitAmount+" "+funct);
             memoryData= memoryData+srcReg+targReg+destinationReg+shfitAmount+funct;
-            result = (int) Long.parseUnsignedLong(memoryData, 2);///This is a overflow error waiting to happen
         }
+        result = (int) Long.parseUnsignedLong(memoryData, 2);///This is a overflow error waiting to happen
         //update memory
         MemoryRow targetMemoryRow = MemoryList.memoryList.stream().filter(memoryRow -> memoryRow.getAddress() == address).findFirst().get();
         targetMemoryRow.setValue(result);
