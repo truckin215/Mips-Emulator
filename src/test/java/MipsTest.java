@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 public class MipsTest {
     @Test
     void memoryNumberConversions() {
-        MemoryRow memoryRow = new MemoryRow(15, 16);
+        MemoryRow memoryRow = new MemoryRow(16, 16);
         System.out.println(memoryRow.getAddressAsBinary());
         System.out.println(memoryRow.getAddressAsDecimal());
         System.out.println(memoryRow.getAddressAsHex());

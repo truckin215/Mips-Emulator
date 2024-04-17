@@ -1,5 +1,7 @@
 package dev.binarybrigade.mipsemulator;
 
+import dev.binarybrigade.mipsemulator.model.MemoryRow;
+
 import java.io.*;
 
 import static dev.binarybrigade.mipsemulator.model.RegisterList.registerList;
@@ -40,19 +42,48 @@ public class FileHandler {
     }
     public void instructionDecoding(String[] split,int address){
         int opcode =opcodeValue(split[0]);
-        if(!split[1].startsWith("zero")) {
-            int register = findRegisterIndex(split[2].substring(0, 2));
-        }else{
-            int register = 0;
+        String memoryData= Integer.toBinaryString(opcode);
+        String srcReg;
+        String targReg;
+        String immediate;
+        int[] targetRegister= new int[10];
+        int r=0;//register count
+        int constant=0;
+        int result=0;
+        for(int i=1;i<split.length;i++) {
+            if(split[i].startsWith("#")){
+                break;
+            }
+            if(split[i].startsWith("$")) {
+                if (!split[1].startsWith("zero")) {
+                    targetRegister[r] = findRegisterIndex(split[i].substring(0, 2));
+                } else {
+                    targetRegister[r] = 0;
+                }
+                r++;
+            }else{
+               constant= Integer.parseInt(split[i]);
+            }
         }
-        for(int i=2;i<split.length;i++){
-            //for constant int constant= Integer.parseInt(split[3]);
+        //memory line builder
+        // immediate format(addi): 000000(opcode)+00000(source register)+00000(register target)+0000000000000000(16bit immediate value) register target likley empty
+        if(!(constant==0)){
+            srcReg=String.format(Integer.toBinaryString(targetRegister[0]));
+            srcReg=binaryFormater(srcReg,5);
+            targReg=srcReg;
+            immediate=Integer.toBinaryString(constant);
+            srcReg=binaryFormater(srcReg,16);
+            memoryData= memoryData+srcReg+targReg+immediate;
+            result=Integer.parseInt(memoryData, 2);
+        }
+
             //for another reg int register2 = findRegisterIndex(split[i].substring(0,2))
             //combine opcode, reg, and constant here
-        }
-        //combine to make memory address
-        //MemoryRow memoryRow = new MemoryRow(address, result);
+        //combine to make memory row
+        MemoryRow memoryRow = new MemoryRow(address, result);
 
+
+        // Register format (add): 000000(opcode)+00000(source register)+00000(register target)+00000(Destination register)+00000(Shiftamount)+00000(funct field opcode field for R-types)
     }
     public int findRegisterIndex(String registerName) {
         for (int i = 0; i < registerList.size(); i++) {
@@ -128,5 +159,14 @@ public class FileHandler {
                 break;
         }
         return 0;
+    }
+    public String binaryFormater(String input, int size){
+        //function adds zeros to front of strings to match desired length so 11, with size 5 = 00011
+        StringBuilder inputBuilder = new StringBuilder(input);
+        for(int n = input.length(); n<size; n++){
+            inputBuilder.insert(0, "0");
+        }
+        input = inputBuilder.toString();
+        return(input);
     }
 }
