@@ -1,7 +1,6 @@
 package dev.binarybrigade.mipsemulator;
 
 import dev.binarybrigade.mipsemulator.model.*;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
@@ -25,6 +24,15 @@ public class Controller {
     // Create ALU table and column
     public TableView<AluRow> aluTable;
     public TableColumn<AluRow, String> aluColumn;
+    // Create L1 table and column
+    public TableView<CacheRow> L1Table;
+
+    // Create L2 table and column
+    public TableView<CacheRow> L2Table;
+
+    // Create L3 table and column
+    public TableView<CacheRow> L3Table;
+
 
     // create a toggle group for the radio buttons
     public ToggleGroup numberBaseGroup;
@@ -54,9 +62,20 @@ public class Controller {
         memoryTable.setItems(MemoryList.memoryList);
 
         // initialize alu table with binary values
-        new AluList();
         aluColumn.setCellValueFactory(cellData -> cellData.getValue().getValueAsBinary());
         aluTable.setItems(AluList.aluList);
+
+        // initialize cache
+
+    }
+
+    @FXML
+    public void step() {
+        ExecutionHandler.executeLine();
+        registerTable.refresh();
+        aluTable.setItems(AluList.aluList);
+        aluTable.refresh();
+        memoryTable.refresh();
     }
 
     // Bound to the binary radio button. Converts memory and register values to binary
@@ -70,6 +89,10 @@ public class Controller {
         memoryAddressColumn.setCellValueFactory(cellData -> cellData.getValue().getAddressAsBinary());
         memoryValueColumn.setCellValueFactory(cellData -> cellData.getValue().getValueAsBinary());
         memoryTable.refresh();
+
+        // initialize ALU table
+        aluColumn.setCellValueFactory(cellData -> cellData.getValue().getValueAsBinary());
+        aluTable.refresh();
     }
     // Bound to the decimal radio button. Converts memory and register values to decimal
     @FXML
@@ -82,6 +105,10 @@ public class Controller {
         memoryAddressColumn.setCellValueFactory(cellData -> cellData.getValue().getAddressAsDecimal());
         memoryValueColumn.setCellValueFactory(cellData -> cellData.getValue().getValueAsDecimal());
         memoryTable.refresh();
+
+        // initialize ALU table
+        aluColumn.setCellValueFactory(cellData -> cellData.getValue().getValueAsDecimal());
+        aluTable.refresh();
     }
     // Bound to the hexadecimal radio button. Converts memory and register values to hex
     @FXML
@@ -94,6 +121,10 @@ public class Controller {
         memoryAddressColumn.setCellValueFactory(cellData -> cellData.getValue().getAddressAsHex());
         memoryValueColumn.setCellValueFactory(cellData -> cellData.getValue().getValueAsHex());
         memoryTable.refresh();
+
+        // initialize ALU table
+        aluColumn.setCellValueFactory(cellData -> cellData.getValue().getValueAsHex());
+        aluTable.refresh();
     }
 
 
