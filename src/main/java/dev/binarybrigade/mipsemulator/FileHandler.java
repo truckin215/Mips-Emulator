@@ -28,7 +28,7 @@ public class FileHandler {
             while (reader.ready()) {
                 String line = reader.readLine();
                 String[] split = line.split(" ");
-                if (!split[0].startsWith("#")){
+                if (!(split[0].startsWith("#")||split[0].isEmpty())){
                     for(int i=0;i<split.length;i++){
                         System.out.println(split[i]);
                     }
@@ -56,7 +56,7 @@ public class FileHandler {
             }
             if(split[i].startsWith("$")) {
                 if (!split[1].startsWith("zero")) {
-                    targetRegister[r] = findRegisterIndex(split[i].substring(0, 2));
+                    targetRegister[r] = findRegisterIndex(split[i].substring(0, 3));
                 } else {
                     targetRegister[r] = 0;
                 }
@@ -68,19 +68,22 @@ public class FileHandler {
         //memory line builder
         // immediate format(addi): 000000(opcode)+00000(source register)+00000(register target)+0000000000000000(16bit immediate value) register target likley empty
         if(!(constant==0)){
-            srcReg=String.format(Integer.toBinaryString(targetRegister[0]));
+            memoryData=binaryFormater(memoryData,6);
+            srcReg=Integer.toBinaryString(targetRegister[0]);
             srcReg=binaryFormater(srcReg,5);
             targReg=srcReg;
             immediate=Integer.toBinaryString(constant);
-            srcReg=binaryFormater(srcReg,16);
+            immediate=binaryFormater(srcReg,16);
+            System.out.println(memoryData+" "+srcReg+" "+targReg+" "+immediate);
             memoryData= memoryData+srcReg+targReg+immediate;
-            result=Integer.parseInt(memoryData, 2);
+           //result=Integer.parseInt(memoryData, 2);
+             System.out.println(memoryData);
         }
 
             //for another reg int register2 = findRegisterIndex(split[i].substring(0,2))
             //combine opcode, reg, and constant here
         //combine to make memory row
-        MemoryRow memoryRow = new MemoryRow(address, result);
+       // MemoryRow memoryRow = new MemoryRow(address, result);
 
 
         // Register format (add): 000000(opcode)+00000(source register)+00000(register target)+00000(Destination register)+00000(Shiftamount)+00000(funct field opcode field for R-types)
