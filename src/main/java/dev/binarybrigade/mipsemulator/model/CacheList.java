@@ -23,6 +23,9 @@ public class CacheList {
     }
 
     public void loadData(int data) {
+        if (data == 0) {
+            return;
+        }
         int index = data % maxIndex;
         entries.set(index, new CacheRow(data, maxIndex));
     }

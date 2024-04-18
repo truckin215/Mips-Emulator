@@ -6,6 +6,9 @@ public class CacheHandler {
     public static CacheList L3 = new CacheList(8);
 
     public static void insertIntoCache(int data) {
+        if (data == 0) {
+            return;
+        }
         // look for hit in L1, then L2, then L3
         // if a hit occurs, do nothing
         // if a miss occurs, load the data out of L3, from L2 to L3, from L1 to L2, then insert new data into L1

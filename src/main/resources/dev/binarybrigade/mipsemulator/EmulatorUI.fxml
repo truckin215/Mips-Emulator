@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.binarybrigade.mipsemulator.Controller">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1562.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.binarybrigade.mipsemulator.Controller">
    <children>
       <TableView fx:id="registerTable" layoutX="14.0" layoutY="38.0" prefHeight="533.0" prefWidth="300.0">
         <columns>
@@ -36,7 +36,7 @@
           <TableColumn fx:id="aluColumn" prefWidth="310.0" sortable="false" text="ALU" />
         </columns>
       </TableView>
-      <VBox layoutX="1154.0" layoutY="289.0" prefHeight="79.0" prefWidth="100.0">
+      <VBox layoutX="1446.0" layoutY="272.0" prefHeight="79.0" prefWidth="100.0">
          <children>
             <Button minHeight="45.0" minWidth="104.0" mnemonicParsing="false" onAction="#step" prefHeight="45.0" prefWidth="104.0" text="Step">
                <VBox.margin>
@@ -67,28 +67,37 @@
             </RadioButton>
          </children>
       </VBox>
-      <TableView fx:id="L1Table" layoutX="833.0" layoutY="40.0" prefHeight="125.0" prefWidth="311.0">
+      <TableView fx:id="L1Table" layoutX="833.0" layoutY="40.0" prefHeight="125.0" prefWidth="600.0">
           <placeholder>
               <Label text="" />
           </placeholder>
         <columns>
-          <TableColumn prefWidth="310.0" sortable="false" text="L1" />
+          <TableColumn fx:id="L1CacheIndexColumn" prefWidth="50.0" sortable="false" text="Index" />
+            <TableColumn fx:id="L1CacheValidColumn" prefWidth="50.0" sortable="false" text="Valid" />
+            <TableColumn fx:id="L1CacheTagColumn" maxWidth="250.0" prefWidth="250.0" sortable="false" text="Tag" />
+            <TableColumn fx:id="L2CacheDataColumn" maxWidth="250.0" prefWidth="250.0" sortable="false" text="Data" />
         </columns>
       </TableView>
-      <TableView fx:id="L2Table" layoutX="833.0" layoutY="173.0" prefHeight="250.0" prefWidth="311.0">
+      <TableView fx:id="L2Table" layoutX="833.0" layoutY="173.0" maxWidth="600.0" minWidth="600.0" prefHeight="250.0" prefWidth="600.0">
           <placeholder>
               <Label text="" />
           </placeholder>
          <columns>
-            <TableColumn prefWidth="310.0" text="L2" />
+            <TableColumn fx:id="L2CacheIndexColumn" prefWidth="50.0" sortable="false" text="Index" />
+            <TableColumn fx:id="L2CacheValidColumn" prefWidth="50.0" sortable="false" text="Valid" />
+            <TableColumn fx:id="L2CacheTagColumn" maxWidth="250.0" prefWidth="250.0" sortable="false" text="Tag" />
+            <TableColumn fx:id="L1CacheDataColumn" maxWidth="250.0" prefWidth="250.0" sortable="false" text="Data" />
          </columns>
       </TableView>
-      <TableView fx:id="L3Table" layoutX="833.0" layoutY="433.0" prefHeight="272.0" prefWidth="311.0">
+      <TableView fx:id="L3Table" layoutX="833.0" layoutY="433.0" maxWidth="600.0" minWidth="600.0" prefHeight="272.0" prefWidth="600.0">
           <placeholder>
               <Label text="" />
           </placeholder>
          <columns>
-            <TableColumn prefWidth="310.0" text="L3" />
+            <TableColumn fx:id="L3CacheIndexColumn" prefWidth="50.0" sortable="false" text="Index" />
+            <TableColumn fx:id="L3CacheValidColumn" prefWidth="50.0" sortable="false" text="Valid" />
+            <TableColumn fx:id="L3CacheTagColumn" maxWidth="250.0" prefWidth="250.0" sortable="false" text="Tag" />
+            <TableColumn fx:id="L3CacheDataColumn" maxWidth="250.0" prefWidth="250.0" sortable="false" text="Data" />
          </columns>
       </TableView>
       <Label layoutX="127.0" layoutY="9.0" text="Registers">

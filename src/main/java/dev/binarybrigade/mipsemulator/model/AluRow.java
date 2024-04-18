@@ -30,7 +30,7 @@ public class AluRow {
         // convert the int to a binary string
         String binaryString = Integer.toBinaryString(value.get());
         // pad the string with 0s to be 32 characters long
-        binaryString = String.format("%032d", Integer.parseInt(binaryString));
+        binaryString = "00000000000000000000000000000000".substring(binaryString.length()) + binaryString;
         // insert a space every 8 characters
         binaryString = binaryString.replaceAll("(.{8})", "$1 ");
         // return as a property

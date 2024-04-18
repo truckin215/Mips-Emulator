@@ -26,12 +26,24 @@ public class Controller {
     public TableColumn<AluRow, String> aluColumn;
     // Create L1 table and column
     public TableView<CacheRow> L1Table;
+    public TableColumn<CacheRow, String> L1CacheIndexColumn;
+    public TableColumn<CacheRow, String> L1CacheValidColumn;
+    public TableColumn<CacheRow, String> L1CacheTagColumn;
+    public TableColumn<CacheRow, String> L1CacheDataColumn;
 
     // Create L2 table and column
     public TableView<CacheRow> L2Table;
+    public TableColumn<CacheRow, String> L2CacheIndexColumn;
+    public TableColumn<CacheRow, String> L2CacheValidColumn;
+    public TableColumn<CacheRow, String> L2CacheTagColumn;
+    public TableColumn<CacheRow, String> L2CacheDataColumn;
 
     // Create L3 table and column
     public TableView<CacheRow> L3Table;
+    public TableColumn<CacheRow, String> L3CacheIndexColumn;
+    public TableColumn<CacheRow, String> L3CacheValidColumn;
+    public TableColumn<CacheRow, String> L3CacheTagColumn;
+    public TableColumn<CacheRow, String> L3CacheDataColumn;
 
 
     // create a toggle group for the radio buttons
@@ -65,7 +77,25 @@ public class Controller {
         aluColumn.setCellValueFactory(cellData -> cellData.getValue().getValueAsBinary());
         aluTable.setItems(AluList.aluList);
 
-        // initialize cache
+        // initialize L1, L2, and L3 cache to binary values
+
+        L1CacheIndexColumn.setCellValueFactory(cellData -> cellData.getValue().getIndexAsBinary());
+        L1CacheValidColumn.setCellValueFactory(cellData -> cellData.getValue().getValidAsStringProperty());
+        L1CacheTagColumn.setCellValueFactory(cellData -> cellData.getValue().getTagAsBinary());
+        L1CacheDataColumn.setCellValueFactory(cellData -> cellData.getValue().getDataAsBinary());
+        L1Table.setItems(CacheHandler.L1.entries);
+
+        L2CacheIndexColumn.setCellValueFactory(cellData -> cellData.getValue().getIndexAsBinary());
+        L2CacheValidColumn.setCellValueFactory(cellData -> cellData.getValue().getValidAsStringProperty());
+        L2CacheTagColumn.setCellValueFactory(cellData -> cellData.getValue().getTagAsBinary());
+        L2CacheDataColumn.setCellValueFactory(cellData -> cellData.getValue().getDataAsBinary());
+        L2Table.setItems(CacheHandler.L2.entries);
+
+        L3CacheIndexColumn.setCellValueFactory(cellData -> cellData.getValue().getIndexAsBinary());
+        L3CacheValidColumn.setCellValueFactory(cellData -> cellData.getValue().getValidAsStringProperty());
+        L3CacheTagColumn.setCellValueFactory(cellData -> cellData.getValue().getTagAsBinary());
+        L3CacheDataColumn.setCellValueFactory(cellData -> cellData.getValue().getDataAsBinary());
+        L3Table.setItems(CacheHandler.L3.entries);
 
     }
 

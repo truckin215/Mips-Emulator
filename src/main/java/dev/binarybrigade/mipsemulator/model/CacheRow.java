@@ -39,6 +39,9 @@ public class CacheRow {
     public int getValid() {
         return valid.get();
     }
+    public SimpleStringProperty getValidAsStringProperty() {
+        return new SimpleStringProperty(String.valueOf(valid.get()));
+    }
 
     public SimpleIntegerProperty validProperty() {
         return valid;
@@ -76,7 +79,7 @@ public class CacheRow {
         // convert the int to a binary string
         String binaryString = Integer.toBinaryString(data.get());
         // pad the string with 0s to be 32 characters long
-        binaryString = String.format("%032d", Integer.parseInt(binaryString));
+        binaryString = "00000000000000000000000000000000".substring(binaryString.length()) + binaryString;
         // insert a space every 8 characters
         binaryString = binaryString.replaceAll("(.{8})", "$1 ");
         // return as a property
@@ -94,7 +97,7 @@ public class CacheRow {
         // convert the int to a binary string
         String binaryString = Integer.toBinaryString(index.get());
         // pad the string with 0s to be 32 characters long
-        binaryString = String.format("%032d", Integer.parseInt(binaryString));
+        binaryString = "000".substring(binaryString.length()) + binaryString;
         // insert a space every 8 characters
         binaryString = binaryString.replaceAll("(.{8})", "$1 ");
         // return as a property
@@ -111,8 +114,9 @@ public class CacheRow {
     public SimpleStringProperty getTagAsBinary() {
         // convert the int to a binary string
         String binaryString = Integer.toBinaryString(tag.get());
+
         // pad the string with 0s to be 32 characters long
-        binaryString = String.format("%032d", Integer.parseInt(binaryString));
+        binaryString = "00000000000000000000000000000000".substring(binaryString.length()) + binaryString;
         // insert a space every 8 characters
         binaryString = binaryString.replaceAll("(.{8})", "$1 ");
         // return as a property
