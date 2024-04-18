@@ -6,9 +6,9 @@ import dev.binarybrigade.mipsemulator.model.*;
 @SuppressWarnings("UnnecessaryLocalVariable")
 public class ExecutionHandler {
     // give opcode int values a variable
-    private static final int ADD = 32, ADDI = 8, AND = 36, ANDI = 12, DIV = 26, MULT = 24, NOR = 39, OR = 37, ORI = 13, SLL = 0, SRL = 2, SUB = 34, XOR = 38, XORI = 14, MFHI = 16, MFLO = 18, LW = 35, SW = 43, SLTI = 10;
+    private static final int ADD = 32, ADDI = 8, AND = 36, ANDI = 12, DIV = 26, MULT = 24, NOR = 39, OR = 37, ORI = 13, SUB = 34, XOR = 38, XORI = 14, MFHI = 16, MFLO = 18, LW = 35, SW = 43, SLTI = 10, BEQ = 4, J = 2;
     // pointer to the PC register
-    private static final RegisterRow programCounter = RegisterList.registerList.get(30);
+    private static final RegisterRow programCounter = RegisterList.registerList.get(32);
 
     public ExecutionHandler() {
 
@@ -19,16 +19,16 @@ public class ExecutionHandler {
     public static void executeLine() {
         // retrieve the line of code at the program counter
         MemoryRow currentMemoryRow = MemoryList.memoryList.stream().filter(memoryRow -> memoryRow.getAddress() == programCounter.getValue()).findFirst().get();
-        String currentWord = currentMemoryRow.getValueAsBinary().get();
+        String currentWord = currentMemoryRow.getValueAsBinary().get().replaceAll("\\s", "");
         // parses the opcode as a decimal value
-        int opcode = Integer.parseInt(currentWord.substring(0, 5), 2);
+        int opcode = Integer.parseInt(currentWord.substring(0, 6), 2);
         // parse register numbers
-        int rTypeArgumentRegister0 = Integer.parseInt(currentWord.substring(6, 10).replaceAll("\\s", ""), 2);
-        int rTypeArgumentRegister1 = Integer.parseInt(currentWord.substring(11, 15).replaceAll("\\s", ""), 2);
-        int rTypeDestinationRegister = Integer.parseInt(currentWord.substring(16, 20).replaceAll("\\s", ""), 2);
+        int rTypeArgumentRegister0 = Integer.parseInt(currentWord.substring(6, 11), 2);
+        int rTypeArgumentRegister1 = Integer.parseInt(currentWord.substring(11, 16), 2);
+        int rTypeDestinationRegister = Integer.parseInt(currentWord.substring(16, 21), 2);
         int iTypeSourceRegister = rTypeArgumentRegister0;
         int iTypeDestinationRegister = rTypeArgumentRegister1;
-        int iTypeImmediate = Integer.parseInt(currentWord.substring(16, 31).replaceAll("\\s", ""), 2);
+        int iTypeImmediate = Integer.parseInt(currentWord.substring(16, 32).replaceAll("\\s", ""), 2);
 
         // int declarations
         int result, num0, num1;
@@ -209,12 +209,6 @@ public class ExecutionHandler {
                 // advance the program counter
                 programCounter.setValue(programCounter.getValue() + 4);
                 break;
-            case SLL:
-                // code here
-                break;
-            case SRL:
-                // code here
-                break;
             case SUB:
                 // clear ALU
                 AluList.clearALU();
@@ -255,6 +249,12 @@ public class ExecutionHandler {
                 // code here
                 break;
             case SLTI:
+                // code here
+                break;
+            case BEQ:
+                // code here
+                break;
+            case J:
                 // code here
                 break;
         }
