@@ -9,8 +9,8 @@ public class CacheRow {
 
     public SimpleIntegerProperty data;
     public SimpleIntegerProperty tag;
-    public CacheRow() {
-        this.index = new SimpleIntegerProperty();
+    public CacheRow(int index) {
+        this.index = new SimpleIntegerProperty(index);
         this.valid = new SimpleIntegerProperty(0);
         this.data = new SimpleIntegerProperty();
         this.tag = new SimpleIntegerProperty();

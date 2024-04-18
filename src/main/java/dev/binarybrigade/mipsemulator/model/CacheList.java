@@ -9,7 +9,7 @@ public class CacheList {
     public CacheList(int maxIndex) {
         this.maxIndex = maxIndex;
         for (int i = 0; i < maxIndex; ++i) {
-            entries.add(i, new CacheRow());
+            entries.add(i, new CacheRow(i));
         }
     }
 
@@ -17,4 +17,24 @@ public class CacheList {
         int index = data % maxIndex;
         entries.set(index, new CacheRow(data, index));
     }
+
+    public int getData(int index) {
+        return entries.get(index).getData();
+    }
+
+    public void loadData(int data) {
+        int index = data % maxIndex;
+        entries.set(index, new CacheRow(data, maxIndex));
+    }
+
+    public boolean miss(int data) {
+        int index = data % maxIndex;
+        return !(entries.get(index).data.get() == data);
+    }
+
+    public int getMaxIndex() {
+        return maxIndex;
+    }
+
+
 }
