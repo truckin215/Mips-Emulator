@@ -17,14 +17,6 @@ public class MemoryRow {
         return address.get();
     }
 
-    public void setAddress(int address) {
-        this.address.set(address);
-    }
-
-    public int getValue() {
-        return value.get();
-    }
-
     public void setValue(int value) {
         this.value.setValue(value);
 

@@ -14,7 +14,6 @@ public class CacheHandler {
         // if a miss occurs, load the data out of L3, from L2 to L3, from L1 to L2, then insert new data into L1
         int L1Index = data % L1.getMaxIndex();
         int L2Index = data % L2.getMaxIndex();
-        int L3Index = data % L3.getMaxIndex();
         // check if a miss occurs in all 3 levels of cache, if true, load the data out of L3, from L2 to L3, from L1 to L2, then insert new data into L1
         if (L1.miss(data)) {
             if (L2.miss(data)) {

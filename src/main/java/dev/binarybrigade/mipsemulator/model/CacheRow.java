@@ -23,57 +23,14 @@ public class CacheRow {
         this.valid = new SimpleIntegerProperty(1);
     }
 
-
-    public int getIndex() {
-        return index.get();
-    }
-
-    public SimpleIntegerProperty indexProperty() {
-        return index;
-    }
-
-    public void setIndex(int index) {
-        this.index.set(index);
-    }
-
-    public int getValid() {
-        return valid.get();
-    }
     public SimpleStringProperty getValidAsStringProperty() {
         return new SimpleStringProperty(String.valueOf(valid.get()));
-    }
-
-    public SimpleIntegerProperty validProperty() {
-        return valid;
-    }
-
-    public void setValid(int valid) {
-        this.valid.set(valid);
-    }
-
-    public int getTag() {
-        return tag.get();
-    }
-
-    public SimpleIntegerProperty tagProperty() {
-        return tag;
-    }
-
-    public void setTag(int tag) {
-        this.tag.set(tag);
     }
 
     public int getData() {
         return data.get();
     }
-
-    public SimpleIntegerProperty dataProperty() {
-        return data;
-    }
-
-    public void setData(int data) {
-        this.data.set(data);
-    }
+    
 
     public SimpleStringProperty getDataAsBinary() {
         // convert the int to a binary string

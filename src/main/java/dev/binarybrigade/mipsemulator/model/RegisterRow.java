@@ -20,10 +20,6 @@ public class RegisterRow {
         return name.getValue();
     }
 
-    public void setName(String name) {
-        this.name.set(name);
-    }
-
     public int getValue() {
         return value.getValue();
     }

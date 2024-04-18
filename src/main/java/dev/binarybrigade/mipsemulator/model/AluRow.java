@@ -14,14 +14,6 @@ public class AluRow {
         this.setValue(value);
     }
 
-    public int getValue() {
-        return value.get();
-    }
-
-    public SimpleIntegerProperty valueProperty() {
-        return value;
-    }
-
     public void setValue(int value) {
         this.value.set(value);
     }

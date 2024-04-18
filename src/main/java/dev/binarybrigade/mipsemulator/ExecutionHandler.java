@@ -16,6 +16,7 @@ public class ExecutionHandler {
 
 
     // executes one line of MIPS code
+    @SuppressWarnings("OptionalGetWithoutIsPresent")
     public static void executeLine() {
         // retrieve the line of code at the program counter
         MemoryRow currentMemoryRow = MemoryList.memoryList.stream().filter(memoryRow -> memoryRow.getAddress() == programCounter.getValue()).findFirst().get();
