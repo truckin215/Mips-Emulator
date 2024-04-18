@@ -172,6 +172,9 @@ public class FileHandler {
             case "SW":
                 // SW instruction
                 return (43);
+            case "SLTI":
+                // SLTI instruction
+                return (10);
             default:
                 // Handle unrecognized opcode
                 System.out.println("Unknown opcode: " + opcode);

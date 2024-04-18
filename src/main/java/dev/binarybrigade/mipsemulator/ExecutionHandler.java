@@ -6,7 +6,7 @@ import dev.binarybrigade.mipsemulator.model.*;
 @SuppressWarnings("UnnecessaryLocalVariable")
 public class ExecutionHandler {
     // give opcode int values a variable
-    private static final int ADD = 32, ADDI = 8, AND = 36, ANDI = 12, DIV = 26, MULT = 24, NOR = 39, OR = 37, ORI = 13, SLL = 0, SRL = 2, SUB = 34, XOR = 38, XORI = 14, MFHI = 16, MFLO = 18, LW = 35, SW = 43;
+    private static final int ADD = 32, ADDI = 8, AND = 36, ANDI = 12, DIV = 26, MULT = 24, NOR = 39, OR = 37, ORI = 13, SLL = 0, SRL = 2, SUB = 34, XOR = 38, XORI = 14, MFHI = 16, MFLO = 18, LW = 35, SW = 43, SLTI = 10;
     // pointer to the PC register
     private static final RegisterRow programCounter = RegisterList.registerList.get(30);
 
@@ -252,6 +252,9 @@ public class ExecutionHandler {
                 // code here
                 break;
             case SW:
+                // code here
+                break;
+            case SLTI:
                 // code here
                 break;
         }
