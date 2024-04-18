@@ -29,7 +29,7 @@ public class FileHandler {
             while (reader.ready()) {
                 String line = reader.readLine();
                 String[] split = line.split(" ");
-                if (!(split[0].startsWith("#")||split[0].isEmpty())){
+                if (!(split[0].startsWith("#")||split[0].isEmpty()||split[0].startsWith("main"))){
                     for(int i=0;i<split.length;i++){
                         System.out.println(split[i]);
                     }
@@ -59,7 +59,7 @@ public class FileHandler {
                 break;
             }
             if(split[i].startsWith("$")) {
-                if (!split[1].startsWith("zero")) {
+                if (!split[i].startsWith("$ze")) {
                     inputRegisters[r] = findRegisterIndex(split[i].substring(0, 3));
                 } else {
                     inputRegisters[r] = 0;
