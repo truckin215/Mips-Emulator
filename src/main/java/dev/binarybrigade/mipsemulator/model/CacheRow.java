@@ -105,11 +105,11 @@ public class CacheRow {
     }
     public SimpleStringProperty getIndexAsDecimal() {
         // pad the string with an appropriate # of 0s and return
-        return new SimpleStringProperty(String.format("%010d", index.get()));
+        return new SimpleStringProperty(String.format("%01d", index.get()));
     }
     public SimpleStringProperty getIndexAsHex() {
         // pad the string with an appropriate # of 0s, format as hex, and return
-        return new SimpleStringProperty(String.format("%08x", index.get()));
+        return new SimpleStringProperty(String.format("%01x", index.get()));
     }
     public SimpleStringProperty getTagAsBinary() {
         // convert the int to a binary string
