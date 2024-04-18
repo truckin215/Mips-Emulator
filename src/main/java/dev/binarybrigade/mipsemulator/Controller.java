@@ -123,6 +123,25 @@ public class Controller {
         // initialize ALU table
         aluColumn.setCellValueFactory(cellData -> cellData.getValue().getValueAsBinary());
         aluTable.refresh();
+
+        // initialize cache tables
+        L1CacheIndexColumn.setCellValueFactory(cellData -> cellData.getValue().getIndexAsBinary());
+        L1CacheValidColumn.setCellValueFactory(cellData -> cellData.getValue().getValidAsStringProperty());
+        L1CacheTagColumn.setCellValueFactory(cellData -> cellData.getValue().getTagAsBinary());
+        L1CacheDataColumn.setCellValueFactory(cellData -> cellData.getValue().getDataAsBinary());
+        L1Table.refresh();
+
+        L2CacheIndexColumn.setCellValueFactory(cellData -> cellData.getValue().getIndexAsBinary());
+        L2CacheValidColumn.setCellValueFactory(cellData -> cellData.getValue().getValidAsStringProperty());
+        L2CacheTagColumn.setCellValueFactory(cellData -> cellData.getValue().getTagAsBinary());
+        L2CacheDataColumn.setCellValueFactory(cellData -> cellData.getValue().getDataAsBinary());
+        L2Table.refresh();
+
+        L3CacheIndexColumn.setCellValueFactory(cellData -> cellData.getValue().getIndexAsBinary());
+        L3CacheValidColumn.setCellValueFactory(cellData -> cellData.getValue().getValidAsStringProperty());
+        L3CacheTagColumn.setCellValueFactory(cellData -> cellData.getValue().getTagAsBinary());
+        L3CacheDataColumn.setCellValueFactory(cellData -> cellData.getValue().getDataAsBinary());
+        L3Table.refresh();
     }
     // Bound to the decimal radio button. Converts memory and register values to decimal
     @FXML
@@ -139,6 +158,25 @@ public class Controller {
         // initialize ALU table
         aluColumn.setCellValueFactory(cellData -> cellData.getValue().getValueAsDecimal());
         aluTable.refresh();
+
+        // initialize cache tables
+        L1CacheIndexColumn.setCellValueFactory(cellData -> cellData.getValue().getIndexAsDecimal());
+        L1CacheValidColumn.setCellValueFactory(cellData -> cellData.getValue().getValidAsStringProperty());
+        L1CacheTagColumn.setCellValueFactory(cellData -> cellData.getValue().getTagAsDecimal());
+        L1CacheDataColumn.setCellValueFactory(cellData -> cellData.getValue().getDataAsDecimal());
+        L1Table.refresh();
+
+        L2CacheIndexColumn.setCellValueFactory(cellData -> cellData.getValue().getIndexAsDecimal());
+        L2CacheValidColumn.setCellValueFactory(cellData -> cellData.getValue().getValidAsStringProperty());
+        L2CacheTagColumn.setCellValueFactory(cellData -> cellData.getValue().getTagAsDecimal());
+        L2CacheDataColumn.setCellValueFactory(cellData -> cellData.getValue().getDataAsDecimal());
+        L2Table.refresh();
+
+        L3CacheIndexColumn.setCellValueFactory(cellData -> cellData.getValue().getIndexAsDecimal());
+        L3CacheValidColumn.setCellValueFactory(cellData -> cellData.getValue().getValidAsStringProperty());
+        L3CacheTagColumn.setCellValueFactory(cellData -> cellData.getValue().getTagAsDecimal());
+        L3CacheDataColumn.setCellValueFactory(cellData -> cellData.getValue().getDataAsDecimal());
+        L3Table.refresh();
     }
     // Bound to the hexadecimal radio button. Converts memory and register values to hex
     @FXML
@@ -155,6 +193,25 @@ public class Controller {
         // initialize ALU table
         aluColumn.setCellValueFactory(cellData -> cellData.getValue().getValueAsHex());
         aluTable.refresh();
+
+        // initialize cache tables
+        L1CacheIndexColumn.setCellValueFactory(cellData -> cellData.getValue().getIndexAsHex());
+        L1CacheValidColumn.setCellValueFactory(cellData -> cellData.getValue().getValidAsStringProperty());
+        L1CacheTagColumn.setCellValueFactory(cellData -> cellData.getValue().getTagAsHex());
+        L1CacheDataColumn.setCellValueFactory(cellData -> cellData.getValue().getDataAsHex());
+        L1Table.refresh();
+
+        L2CacheIndexColumn.setCellValueFactory(cellData -> cellData.getValue().getIndexAsHex());
+        L2CacheValidColumn.setCellValueFactory(cellData -> cellData.getValue().getValidAsStringProperty());
+        L2CacheTagColumn.setCellValueFactory(cellData -> cellData.getValue().getTagAsHex());
+        L2CacheDataColumn.setCellValueFactory(cellData -> cellData.getValue().getDataAsHex());
+        L2Table.refresh();
+
+        L3CacheIndexColumn.setCellValueFactory(cellData -> cellData.getValue().getIndexAsHex());
+        L3CacheValidColumn.setCellValueFactory(cellData -> cellData.getValue().getValidAsStringProperty());
+        L3CacheTagColumn.setCellValueFactory(cellData -> cellData.getValue().getTagAsHex());
+        L3CacheDataColumn.setCellValueFactory(cellData -> cellData.getValue().getDataAsHex());
+        L3Table.refresh();
     }
 
 
