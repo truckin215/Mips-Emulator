@@ -20,9 +20,11 @@ public class ExecutionHandler {
         // retrieve the line of code at the program counter
         MemoryRow currentMemoryRow = MemoryList.memoryList.stream().filter(memoryRow -> memoryRow.getAddress() == programCounter.getValue()).findFirst().get();
         String currentWord = currentMemoryRow.getValueAsBinary().get().replaceAll("\\s", "");
-        // parses the opcode as a decimal value
+        // insert the word into cache memory
+        CacheHandler.insertIntoCache(Integer.parseInt(currentWord, 2));
+        // parse the opcode as a decimal value
         int opcode = Integer.parseInt(currentWord.substring(0, 6), 2);
-        // parse register numbers
+        // parse register numbers as decimal values
         int rTypeArgumentRegister0 = Integer.parseInt(currentWord.substring(6, 11), 2);
         int rTypeArgumentRegister1 = Integer.parseInt(currentWord.substring(11, 16), 2);
         int rTypeDestinationRegister = Integer.parseInt(currentWord.substring(16, 21), 2);
@@ -30,7 +32,7 @@ public class ExecutionHandler {
         int iTypeDestinationRegister = rTypeArgumentRegister1;
         int iTypeImmediate = Integer.parseInt(currentWord.substring(16, 32).replaceAll("\\s", ""), 2);
 
-        // int declarations
+        // int declarations for switch statement
         int result, num0, num1;
 
         switch (opcode) {
