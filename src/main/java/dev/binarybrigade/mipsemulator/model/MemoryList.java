@@ -6,7 +6,7 @@ import javafx.collections.ObservableList;
 public class MemoryList {
     public static ObservableList<MemoryRow> memoryList = FXCollections.observableArrayList();
     private int currentAddress;
-    private static final int MAX_MEMORY = 32; // in words
+    public static final int MAX_MEMORY = 128; // in words
 
     public MemoryList() {
         for (int i = 0; i < MAX_MEMORY; ++i) {
