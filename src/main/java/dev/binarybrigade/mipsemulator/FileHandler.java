@@ -9,7 +9,7 @@ import static dev.binarybrigade.mipsemulator.model.RegisterList.registerList;
 
 
 public class FileHandler {
-    String [] labels= new String[10];
+    String [] labels= new String[20];
     File currentFile;
     BufferedReader reader;
     public FileHandler(File file) {
@@ -58,7 +58,7 @@ public class FileHandler {
         String targReg;
         String immediate;
         String funct;
-        String destinationReg;
+        String destinationReg = "";
         String shfitAmount;
         int[] inputRegisters= new int[10];
         int r=0;//register count
@@ -90,7 +90,7 @@ public class FileHandler {
             System.out.println(memoryData+" "+srcReg+" "+targReg+" "+immediate);
             memoryData= memoryData+srcReg+targReg+immediate;
 
-        }else{
+        }else if(!(opcode==2||opcode==4)){
         // Register format (add): 000000(opcode)+00000(source register)+00000(register target)+00000(Destination register)+00000(Shiftamount)+000000(funct field opcode field for R-types)
             if(r<2) {
                 srcReg = binaryFormater(Integer.toBinaryString(inputRegisters[0]), 5);
@@ -105,6 +105,23 @@ public class FileHandler {
             shfitAmount=binaryFormater("0",5);//shift not currently supported
             System.out.println(memoryData+" "+srcReg+" "+targReg+" "+destinationReg+" "+shfitAmount+" "+funct);
             memoryData= memoryData+srcReg+targReg+destinationReg+shfitAmount+funct;
+        }else if(opcode==2){
+            //jump code (j): 000000(opcode)+0000000000000000000000000(26bit target address box) note this is a simplified version of the one provided
+            boolean found=false;
+            for(int i=0;i< labels.length;i=+2){
+                if (found) break;
+                if(labels[i].startsWith(split[1])){
+                    destinationReg=Integer.toBinaryString(Integer.parseInt(labels[i+1]));
+                    found=true;
+                }
+            }
+            if(found) {
+                destinationReg = binaryFormater(destinationReg, 26);
+                System.out.println(memoryData+" "+destinationReg);
+                memoryData=memoryData+destinationReg;
+            }else{
+                System.out.println("jump label not found");
+            }
         }
         result = (int) Long.parseUnsignedLong(memoryData, 2);///This is a overflow error waiting to happen
         //update memory
