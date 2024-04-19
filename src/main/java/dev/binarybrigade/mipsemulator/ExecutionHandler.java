@@ -65,6 +65,10 @@ public class ExecutionHandler {
                 // read value from source register
                 num0 = RegisterList.registerList.get(iTypeSourceRegister).getValue();
 
+                // send int values to the ALU
+                AluList.sendToALU(num0);
+                AluList.sendToALU(iTypeImmediate);
+
                 // perform addi operation
                 result = num0 + iTypeImmediate;
 

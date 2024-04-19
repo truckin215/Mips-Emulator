@@ -2,10 +2,7 @@ package dev.binarybrigade.mipsemulator;
 
 import dev.binarybrigade.mipsemulator.model.*;
 import javafx.fxml.FXML;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 
 import java.io.File;
@@ -52,6 +49,9 @@ public class Controller {
     public RadioButton binaryRadioButton;
     public RadioButton decmialRadioButton;
     public RadioButton hexRadioButton;
+
+    // hit rate label
+    public Label hitRateLabel;
 
     @FXML
     public void initialize() {
@@ -102,10 +102,14 @@ public class Controller {
     @FXML
     public void step() {
         ExecutionHandler.executeLine();
+        hitRateLabel.setText(String.format("%.2f", CacheHandler.getHitRate() * 100));
         registerTable.refresh();
         aluTable.setItems(AluList.aluList);
         aluTable.refresh();
         memoryTable.refresh();
+        L1Table.refresh();
+        L2Table.refresh();
+        L3Table.refresh();
     }
 
     // Bound to the binary radio button. Converts memory and register values to binary

@@ -5,6 +5,9 @@ public class CacheHandler {
     public static CacheList L2 = new CacheList(4);
     public static CacheList L3 = new CacheList(8);
 
+    private static int hitCount;
+    private static int missCount;
+
     public static void insertIntoCache(int data) {
         if (data == 0) {
             return;
@@ -18,6 +21,7 @@ public class CacheHandler {
         if (L1.miss(data)) {
             if (L2.miss(data)) {
                 if (L3.miss(data)) {
+                    missCount++;
                     // store data from L1, then load the new data into L1
                     int L1Temp = L1.getData(L1Index);
                     L1.loadData(data);
@@ -27,8 +31,25 @@ public class CacheHandler {
                     // load the data from L2 into L3 and discard the data from L3
                     L3.loadData(L2Temp);
                 }
+                else { // L3 hit
+                    hitCount++;
+                }
+            }
+            else { // L2 hit
+                hitCount++;
             }
         }
-        // if these branches aren't executed, then a hit occurs, and we can do nothing
+        else { // L1 hit
+            hitCount++;
+        }
+
+
+    }
+
+    public static double getHitRate() {
+        if (missCount == 0) {
+            return 0;
+        }
+        return (double) hitCount / (double) missCount;
     }
 }
