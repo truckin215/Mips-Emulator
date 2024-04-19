@@ -41,4 +41,8 @@ public class RegisterList {
             new RegisterRow("hi"),
             new RegisterRow("lo")
     );
+
+    public static void updateRegisterValue(int registerNumber, int value) {
+        registerList.get(registerNumber).setValue(value);
+    }
 }

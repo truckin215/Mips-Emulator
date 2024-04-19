@@ -1,8 +1,11 @@
 package dev.binarybrigade.mipsemulator;
 
 import dev.binarybrigade.mipsemulator.model.*;
+import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.FileChooser;
 
 import java.io.File;
@@ -65,13 +68,17 @@ public class Controller {
         // initialize register table with binary values
         registerNameColumn.setCellValueFactory(cellData -> cellData.getValue().name);
         registerValueColumn.setCellValueFactory(cellData -> cellData.getValue().getValueAsBinary());
+        registerValueColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         registerTable.setItems(RegisterList.registerList);
+        setRegisterEditListener();
 
         // initialize memory table with binary values
         new MemoryList();
         memoryAddressColumn.setCellValueFactory(cellData -> cellData.getValue().getAddressAsBinary());
         memoryValueColumn.setCellValueFactory(cellData -> cellData.getValue().getValueAsBinary());
+        memoryValueColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         memoryTable.setItems(MemoryList.memoryList);
+        setMemoryEditListener();
 
         // initialize alu table with binary values
         aluColumn.setCellValueFactory(cellData -> cellData.getValue().getValueAsBinary());
@@ -236,5 +243,28 @@ public class Controller {
         File file = browser.showOpenDialog(null);
         new FileHandler(file);
         memoryTable.refresh();
+    }
+
+    @FXML
+    public void setRegisterEditListener() {
+        registerValueColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<RegisterRow, String>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<RegisterRow, String> event) {
+                int newValue = Integer.parseInt(event.getNewValue().replaceAll(" ", ""));
+                event.getRowValue().setValue(newValue);
+                registerTable.refresh();
+            }
+        });
+    }
+    @FXML
+    public void setMemoryEditListener() {
+        memoryValueColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<MemoryRow, String>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<MemoryRow, String> event) {
+                int newValue = Integer.parseInt(event.getNewValue().replaceAll(" ", ""));
+                event.getRowValue().setValue(newValue);
+                memoryTable.refresh();
+            }
+        });
     }
 }

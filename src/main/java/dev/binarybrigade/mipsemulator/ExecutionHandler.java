@@ -14,7 +14,6 @@ public class ExecutionHandler {
 
     }
 
-
     // executes one line of MIPS code
     @SuppressWarnings("OptionalGetWithoutIsPresent")
     public static void executeLine() {
