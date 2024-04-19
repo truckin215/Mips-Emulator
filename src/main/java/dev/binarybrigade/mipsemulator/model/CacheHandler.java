@@ -6,7 +6,7 @@ public class CacheHandler {
     public static CacheList L3 = new CacheList(8);
 
     private static int hitCount;
-    private static int missCount;
+    private static int totalCount;
 
     public static void insertIntoCache(int data) {
         if (data == 0) {
@@ -21,7 +21,6 @@ public class CacheHandler {
         if (L1.miss(data)) {
             if (L2.miss(data)) {
                 if (L3.miss(data)) {
-                    missCount++;
                     // store data from L1, then load the new data into L1
                     int L1Temp = L1.getData(L1Index);
                     L1.loadData(data);
@@ -42,14 +41,15 @@ public class CacheHandler {
         else { // L1 hit
             hitCount++;
         }
+        totalCount++;
 
 
     }
 
     public static double getHitRate() {
-        if (missCount == 0) {
+        if (totalCount == 0) {
             return 0;
         }
-        return (double) hitCount / (double) missCount;
+        return (double) hitCount / (double) totalCount;
     }
 }
