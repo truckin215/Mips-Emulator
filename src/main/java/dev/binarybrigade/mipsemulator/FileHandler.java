@@ -9,6 +9,7 @@ import static dev.binarybrigade.mipsemulator.model.RegisterList.registerList;
 
 
 public class FileHandler {
+    String [] labels= new String[10];
     File currentFile;
     BufferedReader reader;
     public FileHandler(File file) {
@@ -19,23 +20,32 @@ public class FileHandler {
         } catch (FileNotFoundException e) {
             System.out.println("file not found");
             e.printStackTrace();
-        } catch (Exception e) {
-          System.out.println("Issue with file input");
+    //    } catch (Exception e) {
+        //  System.out.println("Issue with file input");
         }
     }
     public void lineReader(){
         try {
             int address=0;
+            int i=0;
             while (reader.ready()) {
                 String line = reader.readLine();
                 String[] split = line.split(" ");
-                if (!(split[0].startsWith("#")||split[0].isEmpty()||split[0].startsWith("main"))){
-                    for(int i=0;i<split.length;i++){
-                        System.out.println(split[i]);
+                if(opcodeValue(split[0]) == 100 && !split[0].startsWith("#")){
+                    labels[i] = split[0];
+                    labels[i+1] = String.valueOf(address);
+                    i =+ 2;
+                }else if (!(split[0].startsWith("#")||split[0].isEmpty()||split[0].startsWith("main"))){
+                    for(int r=0;r<split.length;r++){
+                        System.out.println(split[r]);
                     }
                     instructionDecoding(split,address);
                     address += 4;
                 }
+            }
+            System.out.println("");
+            for (int y=0;y<labels.length;y++){
+                System.out.print(labels[y]);
             }
         }catch (IOException e){
             e.printStackTrace();
@@ -54,18 +64,17 @@ public class FileHandler {
         int r=0;//register count
         int constant=0;
         int result=0;
-        for(int i=1;i<split.length;i++) {
+       outer: for(int i=1;i<split.length;i++) {
             if(split[i].startsWith("#")){
-                break;
-            }
-            if(split[i].startsWith("$")) {
+                break outer;
+            }else if(split[i].startsWith("$")) {
                 if (!split[i].startsWith("$ze")) {
                     inputRegisters[r] = findRegisterIndex(split[i].substring(0, 3));
                 } else {
                     inputRegisters[r] = 0;
                 }
                 r++;
-            }else{
+            }else if (!(opcode==4 || opcode==2)) {
                constant= Integer.parseInt(split[i]);
             }
         }
@@ -183,9 +192,8 @@ public class FileHandler {
             default:
                 // Handle unrecognized opcode
                 System.out.println("Unknown opcode: " + opcode);
-                break;
+                return(100);
         }
-        return 0;
     }
     public static String binaryFormater(String input, int size){
         //function adds zeros to front of strings to match desired length so 11, with size 5 = 00011
