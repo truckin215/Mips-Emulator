@@ -285,7 +285,8 @@ public class ExecutionHandler {
                 int jumpAddress = Integer.parseInt(currentWord.substring(6),2);
 
                 // shift address left 2 (lowest two bits are '00')
-                int targetAddress = jumpAddress << 2;
+                //int targetAddress = jumpAddress << 2;
+                int targetAddress = jumpAddress;
 
                 // set pc to address
                 programCounter.setValue(targetAddress);
