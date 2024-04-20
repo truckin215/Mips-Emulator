@@ -261,7 +261,17 @@ public class ExecutionHandler {
                 // code here
                 break;
             case J:
-                // code here
+                // clear ALU
+                AluList.clearALU();
+
+                // calculate jump target
+                int jumpAddress = Integer.parseInt(currentWord.substring(6, 32),2);
+
+                // shift address left 2 (lowest two bits are '00')
+                int targetAddress = jumpAddress << 2;
+
+                // set pc to address
+                programCounter.setValue(targetAddress);
                 break;
         }
     }
