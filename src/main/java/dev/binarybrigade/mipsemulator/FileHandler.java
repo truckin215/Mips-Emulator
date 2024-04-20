@@ -120,8 +120,14 @@ public class FileHandler {
                 System.out.println(memoryData+" "+destinationReg);
                 memoryData=memoryData+destinationReg;
             }else{
-                System.out.println("jump label not found");
+                System.out.println("jump label not found, Holding...");
+
             }
+        }else if(opcode==4){
+            //000000(opcode)+00000(first compare)+00000+(second compare)+000000000000000(16bit target address box)
+            srcReg = binaryFormater(Integer.toBinaryString(inputRegisters[0]), 5);
+            targReg = binaryFormater(Integer.toBinaryString(inputRegisters[1]), 5);
+            System.out.println(memoryData+" "+destinationReg);
         }
         result = (int) Long.parseUnsignedLong(memoryData, 2);///This is a overflow error waiting to happen
         //update memory
@@ -201,6 +207,9 @@ public class FileHandler {
             case "SLTI":
                 // SLTI instruction
                 return (10);
+            case "SLT":
+                //  %d=($s<%t)
+                return (42);
             case "BEQ":
                 // BEQ instruction
                 return (4);
