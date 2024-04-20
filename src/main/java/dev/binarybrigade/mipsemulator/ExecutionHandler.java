@@ -265,7 +265,7 @@ public class ExecutionHandler {
                 AluList.clearALU();
 
                 // calculate jump target
-                int jumpAddress = Integer.parseInt(currentWord.substring(6, 32),2);
+                int jumpAddress = Integer.parseInt(currentWord.substring(6),2);
 
                 // shift address left 2 (lowest two bits are '00')
                 int targetAddress = jumpAddress << 2;
