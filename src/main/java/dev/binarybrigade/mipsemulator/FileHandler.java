@@ -127,7 +127,9 @@ public class FileHandler {
             //000000(opcode)+00000(first compare)+00000+(second compare)+000000000000000(16bit target address box)
             srcReg = binaryFormater(Integer.toBinaryString(inputRegisters[0]), 5);
             targReg = binaryFormater(Integer.toBinaryString(inputRegisters[1]), 5);
-            System.out.println(memoryData+" "+destinationReg);
+            immediate="0";
+            immediate=binaryFormater(immediate,16);
+            System.out.println(memoryData+" "+srcReg+" "+targReg);
         }
         result = (int) Long.parseUnsignedLong(memoryData, 2);///This is a overflow error waiting to happen
         //update memory
