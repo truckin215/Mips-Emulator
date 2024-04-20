@@ -2,6 +2,7 @@ package dev.binarybrigade.mipsemulator;
 
 import dev.binarybrigade.mipsemulator.model.MemoryList;
 import dev.binarybrigade.mipsemulator.model.MemoryRow;
+import javafx.beans.property.SimpleStringProperty;
 
 import java.io.*;
 
@@ -31,7 +32,19 @@ public class FileHandler {
             while (reader.ready()) {
                 String line = reader.readLine();
                 String[] split = line.split(" ");
-                if(opcodeValue(split[0]) == 100 && !split[0].startsWith("#")){
+               top: if(opcodeValue(split[0]) == 100 && !split[0].startsWith("#")){
+                    for(int j=10;j<split.length;j++){
+                        if (labels[j].equals(split[0])){
+                            final int finalJ = j;
+                            int result;
+                            MemoryRow targetMemoryRow = MemoryList.memoryList.stream().filter(memoryRow -> memoryRow.getAddress() == Integer.parseInt(labels[finalJ+1])).findFirst().get();
+                            String temp = String.valueOf(targetMemoryRow.getValueAsBinary());
+                            temp= temp.substring(0,temp.length()-16);
+                            result=Integer.parseInt(temp,2);
+                            targetMemoryRow.setValue(result);
+                            break top;
+                        }
+                    }
                     labels[i] = split[0];
                     labels[i+1] = String.valueOf(address);
                     i =+ 2;
@@ -129,7 +142,7 @@ public class FileHandler {
             targReg = binaryFormater(Integer.toBinaryString(inputRegisters[1]), 5);
             immediate="0";
             immediate=binaryFormater(immediate,16);
-            System.out.println(memoryData+" "+srcReg+" "+targReg);
+            System.out.println(memoryData+" "+srcReg+" "+targReg+" "+immediate);
         }
         result = (int) Long.parseUnsignedLong(memoryData, 2);///This is a overflow error waiting to happen
         //update memory
