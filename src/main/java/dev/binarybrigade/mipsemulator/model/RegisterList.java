@@ -34,11 +34,15 @@ public class RegisterList {
             new RegisterRow("$k0"),
             new RegisterRow("$k1"),
             new RegisterRow("$gp"),
-            new RegisterRow("$sp"),
+            new RegisterRow("$sp", MemoryList.MAX_MEMORY),
             new RegisterRow("$fp"),
             new RegisterRow("$ra"),
             new RegisterRow("pc"),
             new RegisterRow("hi"),
             new RegisterRow("lo")
     );
+
+    public static void updateRegisterValue(int registerNumber, int value) {
+        registerList.get(registerNumber).setValue(value);
+    }
 }
