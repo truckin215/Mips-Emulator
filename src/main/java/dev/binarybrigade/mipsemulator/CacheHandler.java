@@ -1,4 +1,6 @@
-package dev.binarybrigade.mipsemulator.model;
+package dev.binarybrigade.mipsemulator;
+
+import dev.binarybrigade.mipsemulator.model.CacheList;
 
 public class CacheHandler {
     public static CacheList L1 = new CacheList(2);

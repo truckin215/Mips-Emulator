@@ -249,6 +249,7 @@ public class ExecutionHandler {
                 // code here
                 break;
             case LW:
+
                 // code here
                 break;
             case SW:
@@ -258,8 +259,24 @@ public class ExecutionHandler {
                 // code here
                 break;
             case BEQ:
-                // code here
-                break;
+                // first 16 bits for registers, last 16 bits for memory address
+                // clear ALU
+                AluList.clearALU();
+
+                // get int values from each register
+                num0 = RegisterList.registerList.get(rTypeDestinationRegister).getValue();
+                num1 = RegisterList.registerList.get(rTypeArgumentRegister0).getValue();
+
+                // get address
+                int address = iTypeImmediate;
+
+                // send int values to the ALU
+                AluList.sendToALU(num0);
+                AluList.sendToALU(num1);
+
+                if (num0 == num1) {
+                    programCounter.setValue(address);
+                }
             case J:
                 // clear ALU
                 AluList.clearALU();

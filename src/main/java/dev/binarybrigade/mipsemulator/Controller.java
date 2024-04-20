@@ -1,7 +1,6 @@
 package dev.binarybrigade.mipsemulator;
 
 import dev.binarybrigade.mipsemulator.model.*;
-import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -250,8 +249,18 @@ public class Controller {
         registerValueColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<RegisterRow, String>>() {
             @Override
             public void handle(TableColumn.CellEditEvent<RegisterRow, String> event) {
-                int newValue = Integer.parseInt(event.getNewValue().replaceAll(" ", ""));
-                event.getRowValue().setValue(newValue);
+                if (numberBaseGroup.getSelectedToggle().toString().contains("Decimal")) {
+                    int newValue = Integer.parseInt(event.getNewValue().replaceAll(" ", ""));
+                    event.getRowValue().setValue(newValue);
+                }
+                else if (numberBaseGroup.getSelectedToggle().toString().contains("Binary")) {
+                    int newValue = Integer.parseInt(event.getNewValue().replaceAll(" ", ""), 2);
+                    event.getRowValue().setValue(newValue);
+                }
+                else if (numberBaseGroup.getSelectedToggle().toString().contains("Hex")) {
+                    int newValue = Integer.parseInt(event.getNewValue().replaceAll(" ", ""), 16);
+                    event.getRowValue().setValue(newValue);
+                }
                 registerTable.refresh();
             }
         });
@@ -261,8 +270,18 @@ public class Controller {
         memoryValueColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<MemoryRow, String>>() {
             @Override
             public void handle(TableColumn.CellEditEvent<MemoryRow, String> event) {
-                int newValue = Integer.parseInt(event.getNewValue().replaceAll(" ", ""));
-                event.getRowValue().setValue(newValue);
+                if (numberBaseGroup.getSelectedToggle().toString().contains("Decimal")) {
+                    int newValue = Integer.parseInt(event.getNewValue().replaceAll(" ", ""));
+                    event.getRowValue().setValue(newValue);
+                }
+                else if (numberBaseGroup.getSelectedToggle().toString().contains("Binary")) {
+                    int newValue = Integer.parseInt(event.getNewValue().replaceAll(" ", ""), 2);
+                    event.getRowValue().setValue(newValue);
+                }
+                else if (numberBaseGroup.getSelectedToggle().toString().contains("Hex")) {
+                    int newValue = Integer.parseInt(event.getNewValue().replaceAll(" ", ""), 16);
+                    event.getRowValue().setValue(newValue);
+                }
                 memoryTable.refresh();
             }
         });
