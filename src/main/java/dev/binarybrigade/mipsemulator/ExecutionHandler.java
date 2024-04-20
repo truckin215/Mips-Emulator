@@ -256,6 +256,8 @@ public class ExecutionHandler {
                 // code here
                 break;
             case SLTI:
+                //slti $t2, $t1, 100 # is x < 100  %t1=($t2<100)
+
                 // code here
                 break;
             case BEQ:
