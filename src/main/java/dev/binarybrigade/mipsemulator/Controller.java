@@ -1,7 +1,6 @@
 package dev.binarybrigade.mipsemulator;
 
 import dev.binarybrigade.mipsemulator.model.*;
-import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
