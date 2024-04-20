@@ -21,7 +21,8 @@ public class ExecutionHandler {
         MemoryRow currentMemoryRow = MemoryList.memoryList.stream().filter(memoryRow -> memoryRow.getAddress() == programCounter.getValue()).findFirst().get();
         String currentWord = currentMemoryRow.getValueAsBinary().get().replaceAll("\\s", "");
         // insert the word into cache memory
-        CacheHandler.insertIntoCache(Integer.parseInt(currentWord, 2));
+        //CacheHandler.insertIntoCache(Integer.parseInt(currentWord, 2));
+        CacheHandler.insertIntoCache(Long.parseLong(currentWord, 2));
         // parse the opcode as a decimal value
         int opcode = Integer.parseInt(currentWord.substring(0, 6), 2);
         // parse register numbers as decimal values

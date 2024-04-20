@@ -1,25 +1,27 @@
 package dev.binarybrigade.mipsemulator.model;
 
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 public class CacheRow {
     public SimpleIntegerProperty index;
     public SimpleIntegerProperty valid;
 
-    public SimpleIntegerProperty data;
+    public SimpleLongProperty data;
     public SimpleIntegerProperty tag;
     public CacheRow(int index) {
         this.index = new SimpleIntegerProperty(index);
         this.valid = new SimpleIntegerProperty(0);
-        this.data = new SimpleIntegerProperty();
+        this.data = new SimpleLongProperty();
         this.tag = new SimpleIntegerProperty();
 
     }
-    public CacheRow(int data, int maxIndex) {
-        this.data = new SimpleIntegerProperty(data);
-        this.index = new SimpleIntegerProperty(data % maxIndex);
-        this.tag = new SimpleIntegerProperty(data / maxIndex);
+    public CacheRow(long data, int maxIndex) {
+        this.data = new SimpleLongProperty(data);
+
+        this.index = new SimpleIntegerProperty((int) (data % maxIndex));
+        this.tag = new SimpleIntegerProperty((int) (data / maxIndex));
         this.valid = new SimpleIntegerProperty(1);
     }
 
@@ -27,14 +29,14 @@ public class CacheRow {
         return new SimpleStringProperty(String.valueOf(valid.get()));
     }
 
-    public int getData() {
+    public long getData() {
         return data.get();
     }
     
 
     public SimpleStringProperty getDataAsBinary() {
         // convert the int to a binary string
-        String binaryString = Integer.toBinaryString(data.get());
+        String binaryString = Long.toBinaryString(data.get());
         // pad the string with 0s to be 32 characters long
         binaryString = "00000000000000000000000000000000".substring(binaryString.length()) + binaryString;
         // insert a space every 8 characters

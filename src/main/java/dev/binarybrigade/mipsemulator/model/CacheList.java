@@ -18,21 +18,21 @@ public class CacheList {
         entries.set(index, new CacheRow(data, index));
     }
 
-    public int getData(int index) {
+    public long getData(int index) {
         return entries.get(index).getData();
     }
 
-    public void loadData(int data) {
+    public void loadData(long data) {
         if (data == 0) {
             return;
         }
-        int index = data % maxIndex;
+        int index = (int) (data % maxIndex);
         entries.set(index, new CacheRow(data, maxIndex));
     }
 
-    public boolean miss(int data) {
-        int index = data % maxIndex;
-        return !(entries.get(index).data.get() == data);
+    public boolean miss(long data) {
+        long index = data % maxIndex;
+        return !(entries.get((int) index).data.get() == data);
     }
 
     public int getMaxIndex() {
