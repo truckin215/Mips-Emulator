@@ -121,11 +121,22 @@ public class FileHandler {
         }else if(opcode==2){
             //jump code (j): 000000(opcode)+0000000000000000000000000(26bit target address box) note this is a simplified version of the one provided
             boolean found=false;
-            for(int i=0;i< labels.length;i=+2){
-                if (found) break;
-                if(labels[i].startsWith(split[1])){
-                    destinationReg=Integer.toBinaryString(Integer.parseInt(labels[i+1]));
-                    found=true;
+            boolean adressGiven=true;
+            int setAdress=0;
+            if(!split[1].equals("")) {
+                try {
+                setAdress = Integer.parseInt(split[1]);
+                } catch (NumberFormatException e) {
+                    adressGiven = false;
+                }
+            }
+            if (!adressGiven){
+                for(int i=0;i< labels.length;i=+2){
+                    if (found) break;
+                    if(labels[i].startsWith(split[1])){
+                        destinationReg=Integer.toBinaryString(Integer.parseInt(labels[i+1]));
+                        found=true;
+                    }
                 }
             }
             if(found) {
@@ -133,8 +144,10 @@ public class FileHandler {
                 System.out.println(memoryData+" "+destinationReg);
                 memoryData=memoryData+destinationReg;
             }else{
-                System.out.println("jump label not found, Holding...");
-
+                destinationReg=Integer.toBinaryString(setAdress);
+                destinationReg = binaryFormater(destinationReg, 26);
+                System.out.println(memoryData+" "+destinationReg);
+                memoryData=memoryData+destinationReg;
             }
         }else if(opcode==4){
             //000000(opcode)+00000(first compare)+00000+(second compare)+000000000000000(16bit target address box)
