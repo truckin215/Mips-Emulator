@@ -149,12 +149,12 @@ public class ExecutionHandler {
                 AluList.sendToALU(num0);
                 AluList.sendToALU(num1);
 
-                //calculate result
+                //calculate upper 32 bits and lower 32 bits of result
                 long multResult = (long) num0 * num1;
                 int hi = (int) (multResult >> 32);
                 int lo = (int) (multResult & 2147483647);
 
-                //send result to the lo register
+                //send result to the hi and lo register
                 RegisterList.registerList.get(33).setValue(hi);
                 RegisterList.registerList.get(34).setValue(lo);
 
@@ -282,10 +282,24 @@ public class ExecutionHandler {
                 programCounter.setValue(programCounter.getValue() + 4);
                 break;
             case MFHI:
-                // code here
+                // clear ALU
+                AluList.clearALU();
+
+                // send result of hi to destination register
+                RegisterList.registerList.get(rTypeDestinationRegister).setValue(RegisterList.registerList.get(33).getValue());
+
+                // advance the program counter
+                programCounter.setValue(programCounter.getValue() + 4);
                 break;
             case MFLO:
-                // code here
+                // clear ALU
+                AluList.clearALU();
+
+                // send result of lo to destination register
+                RegisterList.registerList.get(rTypeDestinationRegister).setValue(RegisterList.registerList.get(34).getValue());
+
+                // advance the program counter
+                programCounter.setValue(programCounter.getValue() + 4);
                 break;
             case LW:
 
