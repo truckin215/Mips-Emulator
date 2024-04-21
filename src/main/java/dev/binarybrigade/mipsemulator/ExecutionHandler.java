@@ -302,7 +302,27 @@ public class ExecutionHandler {
                 programCounter.setValue(programCounter.getValue() + 4);
                 break;
             case LW:
+                // calculate the memory address
+                int memAddress;
+                if (iTypeDestinationRegister != 0) { //offset
+                    memAddress = RegisterList.registerList.get(iTypeDestinationRegister).getValue() + iTypeImmediate;
 
+                }
+                else { // immediate value
+                    memAddress = iTypeImmediate;
+                }
+                int loadedWord = MemoryList.memoryList.get(memAddress / 4).value.get();
+                RegisterList.registerList.get(iTypeSourceRegister).setValue(loadedWord);
+                // advance the program counter
+                programCounter.setValue(programCounter.getValue() + 4);
+                /*
+                - Calculate the memory address by adding the offset to the value in $at (addi instruction)
+                - Send the calculated memory address to the memory unit
+                - Memory unit reads the 32-bit word from the calculated memory address
+                - Store the data retrieved from memory into $t0
+                - Set condition code if necessary
+                - $pc = $pc + 4 // advance the program counter by 4 bytes
+                 */
                 // code here
                 break;
             case SW:

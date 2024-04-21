@@ -34,7 +34,7 @@ public class RegisterList {
             new RegisterRow("$k0"),
             new RegisterRow("$k1"),
             new RegisterRow("$gp"),
-            new RegisterRow("$sp", MemoryList.MAX_MEMORY),
+            new RegisterRow("$sp", MemoryList.MAX_MEMORY * 4),
             new RegisterRow("$fp"),
             new RegisterRow("$ra"),
             new RegisterRow("pc"),

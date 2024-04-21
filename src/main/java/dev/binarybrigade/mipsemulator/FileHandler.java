@@ -87,7 +87,30 @@ public class FileHandler {
                     inputRegisters[r] = 0;
                 }
                 r++;
-            }else if (!(opcode==4 || opcode==2)) {
+            }else if (opcode == 35){ // lw
+
+                if (Character.isDigit(split[i].charAt(0))) {
+                    int offset;
+                    // parse offset number and register value
+                    if (split[i].contains("(")) { // for offset
+                        offset = Integer.parseInt(split[i].substring(0, split[i].indexOf('(')));
+                        inputRegisters[r] = findRegisterIndex(split[i].substring(split[i].indexOf('$'), split[i].indexOf(")")));
+                        constant = offset;
+                    }
+                    else {
+                        try { // for immediate
+                            constant = Integer.parseInt(split[i]);
+                        } catch(Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                else if (Character.isAlphabetic(split[i].charAt(0))) {
+                    // treat as label
+
+                }
+            }
+            else if (!(opcode==4 || opcode==2)) {
                constant= Integer.parseInt(split[i]);
             }
         }
@@ -95,15 +118,22 @@ public class FileHandler {
         // immediate format(addi): 000000(opcode)+00000(source register)+00000(register target)+0000000000000000(16bit immediate value) register target same as src
         memoryData=binaryFormater(memoryData,6);
         if(!(constant==0)){
-            srcReg=Integer.toBinaryString(inputRegisters[0]);
-            srcReg=binaryFormater(srcReg,5);
-            targReg=srcReg;
+            if (opcode == 35) {
+                srcReg = binaryFormater(Integer.toBinaryString(inputRegisters[0]), 5);
+                targReg = binaryFormater(Integer.toBinaryString(inputRegisters[1]), 5);
+            }
+            else {
+                srcReg = Integer.toBinaryString(inputRegisters[0]);
+                srcReg = binaryFormater(srcReg, 5);
+                targReg = srcReg;
+            }
             immediate=Integer.toBinaryString(constant);
             immediate=binaryFormater(immediate,16);
             System.out.println(memoryData+" "+srcReg+" "+targReg+" "+immediate);
             memoryData= memoryData+srcReg+targReg+immediate;
 
-        }else if(!(opcode==2||opcode==4)){
+        }
+        else if(!(opcode==2||opcode==4)){
         // Register format (add): 000000(opcode)+00000(source register)+00000(register target)+00000(Destination register)+00000(Shiftamount)+000000(funct field opcode field for R-types)
             if(r<2) {
                 srcReg = binaryFormater(Integer.toBinaryString(inputRegisters[0]), 5);
