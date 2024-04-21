@@ -142,18 +142,21 @@ public class ExecutionHandler {
                 AluList.clearALU();
 
                 //get int values from each register
-                num0 = RegisterList.registerList.get(rTypeArgumentRegister0).getValue();
-                num1 = RegisterList.registerList.get(rTypeArgumentRegister1).getValue();
+                num0 = RegisterList.registerList.get(rTypeDestinationRegister).getValue();
+                num1 = RegisterList.registerList.get(rTypeArgumentRegister0).getValue();
 
                 //send int values to the ALU
                 AluList.sendToALU(num0);
                 AluList.sendToALU(num1);
 
                 //calculate result
-                result = num0 * num1;
+                long multResult = (long) num0 * num1;
+                int hi = (int) (multResult >> 32);
+                int lo = (int) (multResult & 2147483647);
 
-                //send result to the destination register
-                RegisterList.registerList.get(rTypeDestinationRegister).setValue(result);
+                //send result to the lo register
+                RegisterList.registerList.get(33).setValue(hi);
+                RegisterList.registerList.get(34).setValue(lo);
 
                 // advance the program counter
                 programCounter.setValue(programCounter.getValue() + 4);
@@ -238,10 +241,45 @@ public class ExecutionHandler {
                 programCounter.setValue(programCounter.getValue() + 4);
                 break;
             case XOR:
-                // code here
+                // clear ALU
+                AluList.clearALU();
+
+                // get int values from each register
+                num0 = RegisterList.registerList.get(rTypeArgumentRegister0).getValue();
+                num1 = RegisterList.registerList.get(rTypeArgumentRegister1).getValue();
+
+                // send int values to the ALU
+                AluList.sendToALU(num0);
+                AluList.sendToALU(num1);
+
+                // calculate result
+                result = num0 ^ num1;
+
+                // send result to destination register
+                RegisterList.registerList.get(rTypeDestinationRegister).setValue(result);
+
+                // advance the program counter
+                programCounter.setValue(programCounter.getValue() + 4);
                 break;
             case XORI:
-                // code here
+                // clear ALU
+                AluList.clearALU();
+
+                // get int values from each register
+                num0 = RegisterList.registerList.get(iTypeSourceRegister).getValue();
+
+                // send int values to the ALU
+                AluList.sendToALU(num0);
+                AluList.sendToALU(iTypeImmediate);
+
+                // calculate result
+                result = num0 ^ iTypeImmediate;
+
+                // send result to destination register
+                RegisterList.registerList.get(iTypeDestinationRegister).setValue(result);
+
+                // advance the program counter
+                programCounter.setValue(programCounter.getValue() + 4);
                 break;
             case MFHI:
                 // code here
