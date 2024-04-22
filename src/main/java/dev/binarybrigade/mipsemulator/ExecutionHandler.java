@@ -34,7 +34,7 @@ public class ExecutionHandler {
         int iTypeImmediate = Integer.parseInt(currentWord.substring(16, 32).replaceAll("\\s", ""), 2);
 
         // int declarations for switch statement
-        int result, num0, num1;
+        int result, num0, num1, memoryAddress;
 
         switch (opcode) {
             case ADD:
@@ -303,30 +303,34 @@ public class ExecutionHandler {
                 break;
             case LW:
                 // calculate the memory address
-                int memAddress;
                 if (iTypeDestinationRegister != 0) { //offset
-                    memAddress = RegisterList.registerList.get(iTypeDestinationRegister).getValue() + iTypeImmediate;
+                    memoryAddress = RegisterList.registerList.get(iTypeDestinationRegister).getValue() + iTypeImmediate;
 
                 }
                 else { // immediate value
-                    memAddress = iTypeImmediate;
+                    memoryAddress = iTypeImmediate;
                 }
-                int loadedWord = MemoryList.memoryList.get(memAddress / 4).value.get();
+                // get the word from memory
+                int loadedWord = MemoryList.memoryList.get(memoryAddress / 4).value.get();
+                // load the word into a register
                 RegisterList.registerList.get(iTypeSourceRegister).setValue(loadedWord);
                 // advance the program counter
                 programCounter.setValue(programCounter.getValue() + 4);
-                /*
-                - Calculate the memory address by adding the offset to the value in $at (addi instruction)
-                - Send the calculated memory address to the memory unit
-                - Memory unit reads the 32-bit word from the calculated memory address
-                - Store the data retrieved from memory into $t0
-                - Set condition code if necessary
-                - $pc = $pc + 4 // advance the program counter by 4 bytes
-                 */
-                // code here
                 break;
             case SW:
-                // code here
+                // calculate the memory address
+                if (iTypeDestinationRegister != 0) { //offset
+                    memoryAddress = RegisterList.registerList.get(iTypeDestinationRegister).getValue() + iTypeImmediate;
+                }
+                else { // immediate value
+                    memoryAddress = iTypeImmediate;
+                }
+                // get the word from the register
+                int word = RegisterList.registerList.get(iTypeSourceRegister).getValue();
+                // store the word in memory
+                MemoryList.memoryList.get(memoryAddress / 4).setValue(word);
+                // advance the program counter
+                programCounter.setValue(programCounter.getValue() + 4);
                 break;
             case SLTI:
                 // code here

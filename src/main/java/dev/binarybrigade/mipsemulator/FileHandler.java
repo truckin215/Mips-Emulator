@@ -77,6 +77,7 @@ public class FileHandler {
         int r=0;//register count
         int constant=0;
         int result=0;
+        int offset = -1;
        outer: for(int i=1;i<split.length;i++) {
             if(split[i].startsWith("#")){
                 break outer;
@@ -87,10 +88,10 @@ public class FileHandler {
                     inputRegisters[r] = 0;
                 }
                 r++;
-            }else if (opcode == 35){ // lw
+            }else if (opcode == 35 || opcode == 43){ // lw or sw
 
                 if (Character.isDigit(split[i].charAt(0))) {
-                    int offset;
+                    offset = -1;
                     // parse offset number and register value
                     if (split[i].contains("(")) { // for offset
                         offset = Integer.parseInt(split[i].substring(0, split[i].indexOf('(')));
@@ -117,8 +118,8 @@ public class FileHandler {
         //memory line builder
         // immediate format(addi): 000000(opcode)+00000(source register)+00000(register target)+0000000000000000(16bit immediate value) register target same as src
         memoryData=binaryFormater(memoryData,6);
-        if(!(constant==0)){
-            if (opcode == 35) {
+        if(!(constant==0) || (offset == 0)){
+            if (opcode == 35 || opcode == 43) {
                 srcReg = binaryFormater(Integer.toBinaryString(inputRegisters[0]), 5);
                 targReg = binaryFormater(Integer.toBinaryString(inputRegisters[1]), 5);
             }
