@@ -333,19 +333,20 @@ public class ExecutionHandler {
                 programCounter.setValue(programCounter.getValue() + 4);
                 break;
             case SLTI:
+                //RegisterTarget is marked 1 meaning true, and 0 meaning false
                 // clear ALU
                 AluList.clearALU();
-
-                // read source register
-                num0 = RegisterList.registerList.get(iTypeDestinationRegister).getValue();
-
-                // compare source register to immediate
-                result = (num0 < iTypeImmediate) ? 1 : 0;
-
-                // store result in destination register
-                RegisterList.registerList.get(iTypeDestinationRegister).setValue(result);
-
-                // advance PC
+                // get source
+                num0 = RegisterList.registerList.get(iTypeSourceRegister).getValue();
+                //send to ALU
+                AluList.sendToALU(num0);
+                AluList.sendToALU(iTypeImmediate);
+                //compare source to immediate
+                if(num0<iTypeImmediate){
+                    RegisterList.registerList.get(iTypeDestinationRegister).setValue(1);
+                }else{
+                    RegisterList.registerList.get(iTypeDestinationRegister).setValue(0);
+                }
                 programCounter.setValue(programCounter.getValue() + 4);
                 break;
             case BEQ:
