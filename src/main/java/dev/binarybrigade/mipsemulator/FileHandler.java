@@ -43,7 +43,7 @@ public class FileHandler {
                                 String temp = String.valueOf(targetMemoryRow.getValueAsBinary());
                                 temp=temp.replace(" ","");
                                 temp = temp.substring(21, temp.length() - 17);
-                                temp = temp + binaryFormater(Integer.toBinaryString(Integer.parseInt(labels[j+1])), 16);
+                                temp = temp + binaryFormater(Integer.toBinaryString(address), 16);
                                 result = Integer.parseInt(temp, 2);
                                 targetMemoryRow.setValue(result);
                                 break top;
