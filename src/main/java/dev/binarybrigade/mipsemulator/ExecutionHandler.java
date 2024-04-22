@@ -333,7 +333,21 @@ public class ExecutionHandler {
                 programCounter.setValue(programCounter.getValue() + 4);
                 break;
             case SLTI:
-                // code here
+                //RegisterTarget is marked 1 meaning true, and 0 meaning false
+                // clear ALU
+                AluList.clearALU();
+                // get source
+                num0 = RegisterList.registerList.get(iTypeSourceRegister).getValue();
+                //send to ALU
+                AluList.sendToALU(num0);
+                AluList.sendToALU(iTypeImmediate);
+                //compare source to immediate
+                if(num0<iTypeImmediate){
+                    RegisterList.registerList.get(iTypeDestinationRegister).setValue(1);
+                }else{
+                    RegisterList.registerList.get(iTypeDestinationRegister).setValue(0);
+                }
+                programCounter.setValue(programCounter.getValue() + 4);
                 break;
             case BEQ:
                 // first 16 bits for registers, last 16 bits for memory address
@@ -353,6 +367,8 @@ public class ExecutionHandler {
 
                 if (num0 == num1) {
                     programCounter.setValue(address);
+                }else{
+                    programCounter.setValue(programCounter.getValue() + 4);
                 }
             case J:
                 // clear ALU
