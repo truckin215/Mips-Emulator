@@ -336,14 +336,11 @@ public class ExecutionHandler {
                 // clear ALU
                 AluList.clearALU();
 
-                // read source register
-                num0 = RegisterList.registerList.get(iTypeDestinationRegister).getValue();
+                // get source register value
+                num0 = RegisterList.registerList.get(iTypeSourceRegister).getValue();
 
-                // compare source register to immediate
-                result = (num0 < iTypeImmediate) ? 1 : 0;
-
-                // store result in destination register
-                RegisterList.registerList.get(iTypeDestinationRegister).setValue(result);
+                // compare source register value to immediate and set destination register
+                RegisterList.registerList.get(iTypeDestinationRegister).setValue(num0 < iTypeImmediate ? 1 : 0);
 
                 // advance PC
                 programCounter.setValue(programCounter.getValue() + 4);
