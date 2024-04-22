@@ -8,7 +8,7 @@ public class MemoryList {
     public static final int MAX_MEMORY = 128; // in words
 
     public MemoryList() {
-        for (int i = 0; i < MAX_MEMORY; ++i) {
+        for (int i = 0; i <= MAX_MEMORY; ++i) {
             memoryList.add(i, new MemoryRow(i*4, 0));
         }
     }

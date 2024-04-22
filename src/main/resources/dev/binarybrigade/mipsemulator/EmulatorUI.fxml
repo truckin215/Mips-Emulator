@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<ScrollPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.binarybrigade.mipsemulator.Controller">
+<ScrollPane xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.binarybrigade.mipsemulator.Controller">
    <content>
       <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1562.0">
          <children>

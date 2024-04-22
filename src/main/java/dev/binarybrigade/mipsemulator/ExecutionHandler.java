@@ -21,7 +21,8 @@ public class ExecutionHandler {
         MemoryRow currentMemoryRow = MemoryList.memoryList.stream().filter(memoryRow -> memoryRow.getAddress() == programCounter.getValue()).findFirst().get();
         String currentWord = currentMemoryRow.getValueAsBinary().get().replaceAll("\\s", "");
         // insert the word into cache memory
-        CacheHandler.insertIntoCache(Integer.parseInt(currentWord, 2));
+        //CacheHandler.insertIntoCache(Integer.parseInt(currentWord, 2));
+        CacheHandler.insertIntoCache(Long.parseLong(currentWord, 2));
         // parse the opcode as a decimal value
         int opcode = Integer.parseInt(currentWord.substring(0, 6), 2);
         // parse register numbers as decimal values
@@ -33,7 +34,7 @@ public class ExecutionHandler {
         int iTypeImmediate = Integer.parseInt(currentWord.substring(16, 32).replaceAll("\\s", ""), 2);
 
         // int declarations for switch statement
-        int result, num0, num1;
+        int result, num0, num1, memoryAddress;
 
         switch (opcode) {
             case ADD:
@@ -141,18 +142,21 @@ public class ExecutionHandler {
                 AluList.clearALU();
 
                 //get int values from each register
-                num0 = RegisterList.registerList.get(rTypeArgumentRegister0).getValue();
-                num1 = RegisterList.registerList.get(rTypeArgumentRegister1).getValue();
+                num0 = RegisterList.registerList.get(rTypeDestinationRegister).getValue();
+                num1 = RegisterList.registerList.get(rTypeArgumentRegister0).getValue();
 
                 //send int values to the ALU
                 AluList.sendToALU(num0);
                 AluList.sendToALU(num1);
 
-                //calculate result
-                result = num0 * num1;
+                //calculate upper 32 bits and lower 32 bits of result
+                long multResult = (long) num0 * num1;
+                int hi = (int) (multResult >> 32);
+                int lo = (int) (multResult & 2147483647);
 
-                //send result to the destination register
-                RegisterList.registerList.get(rTypeDestinationRegister).setValue(result);
+                //send result to the hi and lo register
+                RegisterList.registerList.get(33).setValue(hi);
+                RegisterList.registerList.get(34).setValue(lo);
 
                 // advance the program counter
                 programCounter.setValue(programCounter.getValue() + 4);
@@ -237,23 +241,96 @@ public class ExecutionHandler {
                 programCounter.setValue(programCounter.getValue() + 4);
                 break;
             case XOR:
-                // code here
+                // clear ALU
+                AluList.clearALU();
+
+                // get int values from each register
+                num0 = RegisterList.registerList.get(rTypeArgumentRegister0).getValue();
+                num1 = RegisterList.registerList.get(rTypeArgumentRegister1).getValue();
+
+                // send int values to the ALU
+                AluList.sendToALU(num0);
+                AluList.sendToALU(num1);
+
+                // calculate result
+                result = num0 ^ num1;
+
+                // send result to destination register
+                RegisterList.registerList.get(rTypeDestinationRegister).setValue(result);
+
+                // advance the program counter
+                programCounter.setValue(programCounter.getValue() + 4);
                 break;
             case XORI:
-                // code here
+                // clear ALU
+                AluList.clearALU();
+
+                // get int values from each register
+                num0 = RegisterList.registerList.get(iTypeSourceRegister).getValue();
+
+                // send int values to the ALU
+                AluList.sendToALU(num0);
+                AluList.sendToALU(iTypeImmediate);
+
+                // calculate result
+                result = num0 ^ iTypeImmediate;
+
+                // send result to destination register
+                RegisterList.registerList.get(iTypeDestinationRegister).setValue(result);
+
+                // advance the program counter
+                programCounter.setValue(programCounter.getValue() + 4);
                 break;
             case MFHI:
-                // code here
+                // clear ALU
+                AluList.clearALU();
+
+                // send result of hi to destination register
+                RegisterList.registerList.get(rTypeDestinationRegister).setValue(RegisterList.registerList.get(33).getValue());
+
+                // advance the program counter
+                programCounter.setValue(programCounter.getValue() + 4);
                 break;
             case MFLO:
-                // code here
+                // clear ALU
+                AluList.clearALU();
+
+                // send result of lo to destination register
+                RegisterList.registerList.get(rTypeDestinationRegister).setValue(RegisterList.registerList.get(34).getValue());
+
+                // advance the program counter
+                programCounter.setValue(programCounter.getValue() + 4);
                 break;
             case LW:
+                // calculate the memory address
+                if (iTypeDestinationRegister != 0) { //offset
+                    memoryAddress = RegisterList.registerList.get(iTypeDestinationRegister).getValue() + iTypeImmediate;
 
-                // code here
+                }
+                else { // immediate value
+                    memoryAddress = iTypeImmediate;
+                }
+                // get the word from memory
+                int loadedWord = MemoryList.memoryList.get(memoryAddress / 4).value.get();
+                // load the word into a register
+                RegisterList.registerList.get(iTypeSourceRegister).setValue(loadedWord);
+                // advance the program counter
+                programCounter.setValue(programCounter.getValue() + 4);
                 break;
             case SW:
-                // code here
+                // calculate the memory address
+                if (iTypeDestinationRegister != 0) { //offset
+                    memoryAddress = RegisterList.registerList.get(iTypeDestinationRegister).getValue() + iTypeImmediate;
+                }
+                else { // immediate value
+                    memoryAddress = iTypeImmediate;
+                }
+                // get the word from the register
+                int word = RegisterList.registerList.get(iTypeSourceRegister).getValue();
+                // store the word in memory
+                MemoryList.memoryList.get(memoryAddress / 4).setValue(word);
+                // advance the program counter
+                programCounter.setValue(programCounter.getValue() + 4);
                 break;
             case SLTI:
                 // clear ALU

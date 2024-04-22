@@ -40,6 +40,7 @@ public class FileHandler {
                             MemoryRow targetMemoryRow = MemoryList.memoryList.stream().filter(memoryRow -> memoryRow.getAddress() == Integer.parseInt(labels[finalJ+1])).findFirst().get();
                             String temp = String.valueOf(targetMemoryRow.getValueAsBinary());
                             temp= temp.substring(0,temp.length()-16);
+                            temp=temp+binaryFormater(Integer.toBinaryString(address),16);
                             result=Integer.parseInt(temp,2);
                             targetMemoryRow.setValue(result);
                             break top;
@@ -77,6 +78,7 @@ public class FileHandler {
         int r=0;//register count
         int constant=0;
         int result=0;
+        int offset = -1;
        outer: for(int i=1;i<split.length;i++) {
             if(split[i].startsWith("#")){
                 break outer;
@@ -87,23 +89,53 @@ public class FileHandler {
                     inputRegisters[r] = 0;
                 }
                 r++;
-            }else if (!(opcode==4 || opcode==2)) {
+            }else if (opcode == 35 || opcode == 43){ // lw or sw
+
+                if (Character.isDigit(split[i].charAt(0))) {
+                    offset = -1;
+                    // parse offset number and register value
+                    if (split[i].contains("(")) { // for offset
+                        offset = Integer.parseInt(split[i].substring(0, split[i].indexOf('(')));
+                        inputRegisters[r] = findRegisterIndex(split[i].substring(split[i].indexOf('$'), split[i].indexOf(")")));
+                        constant = offset;
+                    }
+                    else {
+                        try { // for immediate
+                            constant = Integer.parseInt(split[i]);
+                        } catch(Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                else if (Character.isAlphabetic(split[i].charAt(0))) {
+                    // treat as label
+
+                }
+            }
+            else if (!(opcode==4 || opcode==2)) {
                constant= Integer.parseInt(split[i]);
             }
         }
         //memory line builder
         // immediate format(addi): 000000(opcode)+00000(source register)+00000(register target)+0000000000000000(16bit immediate value) register target same as src
         memoryData=binaryFormater(memoryData,6);
-        if(!(constant==0)){
-            srcReg=Integer.toBinaryString(inputRegisters[0]);
-            srcReg=binaryFormater(srcReg,5);
-            targReg=srcReg;
+        if(!(constant==0) || (offset == 0)){
+            if (opcode == 35 || opcode == 43) {
+                srcReg = binaryFormater(Integer.toBinaryString(inputRegisters[0]), 5);
+                targReg = binaryFormater(Integer.toBinaryString(inputRegisters[1]), 5);
+            }
+            else {
+                srcReg = Integer.toBinaryString(inputRegisters[0]);
+                srcReg = binaryFormater(srcReg, 5);
+                targReg = srcReg;
+            }
             immediate=Integer.toBinaryString(constant);
             immediate=binaryFormater(immediate,16);
             System.out.println(memoryData+" "+srcReg+" "+targReg+" "+immediate);
             memoryData= memoryData+srcReg+targReg+immediate;
 
-        }else if(!(opcode==2||opcode==4)){
+        }
+        else if(!(opcode==2||opcode==4)){
         // Register format (add): 000000(opcode)+00000(source register)+00000(register target)+00000(Destination register)+00000(Shiftamount)+000000(funct field opcode field for R-types)
             if(r<2) {
                 srcReg = binaryFormater(Integer.toBinaryString(inputRegisters[0]), 5);
@@ -245,8 +277,14 @@ public class FileHandler {
                 return (2);
             default:
                 // Handle unrecognized opcode
-                System.out.println("Unknown opcode: " + opcode);
-                return(100);
+                if(opcode.endsWith(":")){
+                    System.out.println("Initialized Label: " + opcode.substring(0,opcode.length()-1));
+
+                    return (100);
+                }else {
+                    System.out.println("Unknown opcode: " + opcode);
+                    return (99);
+                }
         }
     }
     public static String binaryFormater(String input, int size){
