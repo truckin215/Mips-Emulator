@@ -256,7 +256,20 @@ public class ExecutionHandler {
                 // code here
                 break;
             case SLTI:
-                // code here
+                // clear ALU
+                AluList.clearALU();
+
+                // read source register
+                num0 = RegisterList.registerList.get(iTypeDestinationRegister).getValue();
+
+                // compare source register to immediate
+                result = (num0 < iTypeImmediate) ? 1 : 0;
+
+                // store result in destination register
+                RegisterList.registerList.get(iTypeDestinationRegister).setValue(result);
+
+                // advance PC
+                programCounter.setValue(programCounter.getValue() + 4);
                 break;
             case BEQ:
                 // first 16 bits for registers, last 16 bits for memory address
