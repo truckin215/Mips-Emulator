@@ -40,6 +40,7 @@ public class FileHandler {
                             MemoryRow targetMemoryRow = MemoryList.memoryList.stream().filter(memoryRow -> memoryRow.getAddress() == Integer.parseInt(labels[finalJ+1])).findFirst().get();
                             String temp = String.valueOf(targetMemoryRow.getValueAsBinary());
                             temp= temp.substring(0,temp.length()-16);
+                            temp=temp+binaryFormater(Integer.toBinaryString(address),16);
                             result=Integer.parseInt(temp,2);
                             targetMemoryRow.setValue(result);
                             break top;
@@ -276,8 +277,14 @@ public class FileHandler {
                 return (2);
             default:
                 // Handle unrecognized opcode
-                System.out.println("Unknown opcode: " + opcode);
-                return(100);
+                if(opcode.endsWith(":")){
+                    System.out.println("Initialized Label: " + opcode.substring(0,opcode.length()-1));
+
+                    return (100);
+                }else {
+                    System.out.println("Unknown opcode: " + opcode);
+                    return (99);
+                }
         }
     }
     public static String binaryFormater(String input, int size){
