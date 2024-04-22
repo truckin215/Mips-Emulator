@@ -11,6 +11,7 @@ import static dev.binarybrigade.mipsemulator.model.RegisterList.registerList;
 
 public class FileHandler {
     String [] labels= new String[20];
+    int outerLabels=0;
     File currentFile;
     BufferedReader reader;
     public FileHandler(File file) {
@@ -33,17 +34,20 @@ public class FileHandler {
                 String line = reader.readLine();
                 String[] split = line.split(" ");
                top: if(opcodeValue(split[0]) == 100 && !split[0].startsWith("#")){
-                    for(int j=10;j<split.length;j++){
-                        if (labels[j].equals(split[0])){
-                            final int finalJ = j;
-                            int result;
-                            MemoryRow targetMemoryRow = MemoryList.memoryList.stream().filter(memoryRow -> memoryRow.getAddress() == Integer.parseInt(labels[finalJ+1])).findFirst().get();
-                            String temp = String.valueOf(targetMemoryRow.getValueAsBinary());
-                            temp= temp.substring(0,temp.length()-16);
-                            temp=temp+binaryFormater(Integer.toBinaryString(address),16);
-                            result=Integer.parseInt(temp,2);
-                            targetMemoryRow.setValue(result);
-                            break top;
+                    for(int j=0;j<labels.length;j++){
+                        if(!(labels[j]==null)) {
+                            if (split[0].startsWith(labels[j])) {
+                                final int finalJ = j;
+                                int result;
+                                MemoryRow targetMemoryRow = MemoryList.memoryList.stream().filter(memoryRow -> memoryRow.getAddress() == Integer.parseInt(labels[finalJ + 1])).findFirst().get();
+                                String temp = String.valueOf(targetMemoryRow.getValueAsBinary());
+                                temp=temp.replace(" ","");
+                                temp = temp.substring(21, temp.length() - 17);
+                                temp = temp + binaryFormater(Integer.toBinaryString(Integer.parseInt(labels[j+1])), 16);
+                                result = Integer.parseInt(temp, 2);
+                                targetMemoryRow.setValue(result);
+                                break top;
+                            }
                         }
                     }
                     labels[i] = split[0];
@@ -109,11 +113,17 @@ public class FileHandler {
                 }
                 else if (Character.isAlphabetic(split[i].charAt(0))) {
                     // treat as label
+                    labels[10+2*(outerLabels)] = split[0];
+                    labels[10+2*(outerLabels)+1] = String.valueOf(address);
 
                 }
             }
             else if (!(opcode==4 || opcode==2)) {
                constant= Integer.parseInt(split[i]);
+            } else if ((Character.isAlphabetic(split[i].charAt(0)))&&opcode==4) {
+                // treat as label
+                labels[10+2*(outerLabels)] = split[3];
+                labels[10+2*(outerLabels)+1] = String.valueOf(address);
             }
         }
         //memory line builder
@@ -188,6 +198,7 @@ public class FileHandler {
             immediate="0";
             immediate=binaryFormater(immediate,16);
             System.out.println(memoryData+" "+srcReg+" "+targReg+" "+immediate);
+            memoryData=memoryData+srcReg+targReg+immediate;
         }
         result = (int) Long.parseUnsignedLong(memoryData, 2);///This is a overflow error waiting to happen
         //update memory
