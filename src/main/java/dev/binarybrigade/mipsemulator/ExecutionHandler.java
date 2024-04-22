@@ -355,7 +355,7 @@ public class ExecutionHandler {
                 AluList.clearALU();
 
                 // get int values from each register
-                num0 = RegisterList.registerList.get(rTypeDestinationRegister).getValue();
+                num0 = RegisterList.registerList.get(iTypeDestinationRegister).getValue();
                 num1 = RegisterList.registerList.get(rTypeArgumentRegister0).getValue();
 
                 // get address
@@ -370,6 +370,7 @@ public class ExecutionHandler {
                 }else{
                     programCounter.setValue(programCounter.getValue() + 4);
                 }
+                break;
             case J:
                 // clear ALU
                 AluList.clearALU();
