@@ -1,6 +1,5 @@
-main:
-add $t0, $t0, $zero # sum = 0
-add $t1, $t1, $zero # x = 0
+add $t0, $t0, $zero
+add $t1, $t1, $zero
 loop:
 slti $t2, $t1, 100 # is x < 100?
 beq $t2, $zero, done
