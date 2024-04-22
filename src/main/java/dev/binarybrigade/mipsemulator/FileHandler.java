@@ -33,17 +33,19 @@ public class FileHandler {
                 String line = reader.readLine();
                 String[] split = line.split(" ");
                top: if(opcodeValue(split[0]) == 100 && !split[0].startsWith("#")){
-                    for(int j=10;j<split.length;j++){
-                        if (labels[j].equals(split[0])){
-                            final int finalJ = j;
-                            int result;
-                            MemoryRow targetMemoryRow = MemoryList.memoryList.stream().filter(memoryRow -> memoryRow.getAddress() == Integer.parseInt(labels[finalJ+1])).findFirst().get();
-                            String temp = String.valueOf(targetMemoryRow.getValueAsBinary());
-                            temp= temp.substring(0,temp.length()-16);
-                            temp=temp+binaryFormater(Integer.toBinaryString(address),16);
-                            result=Integer.parseInt(temp,2);
-                            targetMemoryRow.setValue(result);
-                            break top;
+                    for(int j=0;j<split.length;j++){
+                        if() {
+                            if (labels[j].equals(split[0])) {
+                                final int finalJ = j;
+                                int result;
+                                MemoryRow targetMemoryRow = MemoryList.memoryList.stream().filter(memoryRow -> memoryRow.getAddress() == Integer.parseInt(labels[finalJ + 1])).findFirst().get();
+                                String temp = String.valueOf(targetMemoryRow.getValueAsBinary());
+                                temp = temp.substring(0, temp.length() - 16);
+                                temp = temp + binaryFormater(Integer.toBinaryString(address), 16);
+                                result = Integer.parseInt(temp, 2);
+                                targetMemoryRow.setValue(result);
+                                break top;
+                            }
                         }
                     }
                     labels[i] = split[0];
