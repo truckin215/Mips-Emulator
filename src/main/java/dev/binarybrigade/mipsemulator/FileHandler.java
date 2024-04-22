@@ -133,11 +133,14 @@ public class FileHandler {
             if (opcode == 35 || opcode == 43) {
                 srcReg = binaryFormater(Integer.toBinaryString(inputRegisters[0]), 5);
                 targReg = binaryFormater(Integer.toBinaryString(inputRegisters[1]), 5);
-            }
-            else {
+            } else if(r<1) {
                 srcReg = Integer.toBinaryString(inputRegisters[0]);
                 srcReg = binaryFormater(srcReg, 5);
                 targReg = srcReg;
+            }else{
+                targReg = Integer.toBinaryString(inputRegisters[0]);
+                targReg = binaryFormater(targReg, 5);
+                srcReg = binaryFormater(Integer.toBinaryString(inputRegisters[1]),5);
             }
             immediate=Integer.toBinaryString(constant);
             immediate=binaryFormater(immediate,16);
@@ -147,7 +150,7 @@ public class FileHandler {
         }
         else if(!(opcode==2||opcode==4)){
         // Register format (add): 000000(opcode)+00000(source register)+00000(register target)+00000(Destination register)+00000(Shiftamount)+000000(funct field opcode field for R-types)
-            if(r<2) {
+            if(r<1) {
                 srcReg = binaryFormater(Integer.toBinaryString(inputRegisters[0]), 5);
                 targReg = binaryFormater(Integer.toBinaryString(inputRegisters[1]), 5);
                 destinationReg = srcReg;
