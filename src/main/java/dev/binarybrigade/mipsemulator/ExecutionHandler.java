@@ -363,6 +363,8 @@ public class ExecutionHandler {
 
                 if (num0 == num1) {
                     programCounter.setValue(address);
+                }else{
+                    programCounter.setValue(programCounter.getValue() + 4);
                 }
             case J:
                 // clear ALU
